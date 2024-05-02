@@ -27,4 +27,15 @@ class Apartment extends Model
     {
         return $this->hasMany(View::class);
     }
+
+    /* un appartamento ha uno o più servizi */
+    public function services()
+    {
+        return $this->belongsToMany(Service::class);
+    }
+    /* un appartamento ha uno o più sponsorizzazioni */
+    public function sponsors()
+    {
+        return $this->belongsToMany(Sponsor::class);
+    }
 }
