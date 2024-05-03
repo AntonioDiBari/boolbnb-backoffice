@@ -1,5 +1,19 @@
 @extends('layouts.app')
 
+@section('js')
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        function getAddress() {
+            axios.get(
+                'https://api.tomtom.com/search/2/reverseGeocode/44.06404,12.5724.json?key=J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt'
+            ).then((response) => {
+                console.log(response.data.addresses)
+            })
+        };
+        console.log(getAddress());
+    </script>
+@endsection
+
 @section('content')
     <div class="container my-3">
 
@@ -29,6 +43,7 @@
                         <td>{{ $apartment->visible }}</td>
                         <td>{{ $apartment->latitude }}</td>
                         <td>{{ $apartment->longitude }}</td>
+                        {{-- <td>{{ $this->getAddress() }}</td> --}}
                     </tr>
                 @empty
                     <tr>
