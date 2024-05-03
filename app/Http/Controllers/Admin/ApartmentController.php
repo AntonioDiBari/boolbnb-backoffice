@@ -21,7 +21,16 @@ class ApartmentController extends Controller
         $apartments = Apartment::select(['title_desc', 'n_rooms', 'n_bathrooms', 'n_beds', 'square_mts', 'img', 'visible', 'latitude', 'longitude'])
             ->where('user_id', $id)->paginate(10);
 
-        return view('admin.apartments.index', compact('apartments'));
+            $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+            $addresses = [];
+            foreach ($apartments as $key=>$apartment) {
+                $address_path = "https://api.tomtom.com/search/2/reverseGeocode/{$apartment->latitude},{$apartment->longitude}.json?key={$apiKey}";
+                $address_json = file_get_contents($address_path);
+                $address_obj = json_decode($address_json);
+                array_push($addresses, $address_obj->addresses[0]->address->freeformAddress);
+            }
+            
+        return view('admin.apartments.index', compact('apartments', 'addresses'));
     }
 
     /**

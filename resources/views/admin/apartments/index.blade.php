@@ -27,12 +27,13 @@
                     <th scope="col">Metri Quadri</th>
                     <th scope="col">IMG</th>
                     <th scope="col">Pubbliccato</th>
-                    <th scope="col">Latitudine</th>
-                    <th scope="col">Longitudine</th>
+                    {{-- <th scope="col">Latitudine</th>
+                    <th scope="col">Longitudine</th> --}}
+                    <th scope="col">Indirizzo</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($apartments as $apartment)
+                @forelse ($apartments as $key=>$apartment)
                     <tr>
                         <td>{{ $apartment->title_desc }}</td>
                         <td>{{ $apartment->n_rooms }}</td>
@@ -41,9 +42,9 @@
                         <td>{{ $apartment->square_mts }}</td>
                         <td>{{ $apartment->img }}</td>
                         <td>{{ $apartment->visible }}</td>
-                        <td>{{ $apartment->latitude }}</td>
-                        <td>{{ $apartment->longitude }}</td>
-                        {{-- <td>{{ $this->getAddress() }}</td> --}}
+                        {{-- <td>{{ $apartment->latitude }}</td>
+                        <td>{{ $apartment->longitude }}</td> --}}
+                        <td>{{ $addresses[$key] }}</td>
                     </tr>
                 @empty
                     <tr>
