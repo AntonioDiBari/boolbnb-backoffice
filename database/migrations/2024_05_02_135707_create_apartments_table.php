@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->tinyInteger('n_beds');
             $table->smallInteger('square_mts');
             $table->string('img');
-            $table->boolean('visible');
+            $table->boolean('visible')->default(0);
             $table->decimal('latitude', 7, 5);
             $table->decimal('longitude', 8, 5);
             $table->timestamps();

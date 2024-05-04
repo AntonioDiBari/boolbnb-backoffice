@@ -15,6 +15,7 @@
                     <th scope="col">Pubbliccato</th>
                     <th scope="col">Indirizzo</th>
                     <th scope="col">Servizi</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +36,14 @@
                                 @endforeach
                             </ul>
                         </td>
+                        <td class="d-flex gap-2">
+                            <a href="{{ route('admin.apartments.edit', $apartment) }}">
+                                <i class="fa-solid fa-pencil text-primary"></i>
+                            </a>
+                            <div data-bs-toggle="modal" data-bs-target="#delete-{{ $apartment->id }}-apartment">
+                                <i class="fa-solid fa-trash text-danger"></i>
+                            </div>
+                        </td>
                     </tr>
                 @empty
                     <tr>
@@ -44,4 +53,33 @@
             </tbody>
         </table>
     </div>
+@endsection
+
+@section('modal')
+    @foreach ($apartments as $apartment)
+        <div class="modal fade" id="delete-{{ $apartment->id }}-apartment" tabindex="-1"
+            aria-labelledby="delete-{{ $apartment->id }}-apartment" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="delete-{{ $apartment->id }}-apartment">
+                            Eliminare {{ $apartment->title_desc }} ?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Se confermi non potrai tornare indietro.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                        <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection

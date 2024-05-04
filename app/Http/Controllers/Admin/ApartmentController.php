@@ -54,18 +54,25 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
+        $id = Auth::id();
         $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
-        $request->validated();
+        // $request->validated();
         $data = $request->all();
         
         $apartment = new apartment();
         $apartment->fill($data);
-        $address_path = str_replace("%20", " ", $apartment->address);
-        $coordinate_path = "https://api.tomtom.com/search/2/geocode/{$apartment->n_address}%20{$address_path},%20{$apartment->city},%20{$apartment->country}.json?key={$apiKey}";
+        // dd($data);
+        
+        $address_path = str_replace(" ", "%20", $data['address']);
+        $coordinate_path = "https://api.tomtom.com/search/2/geocode/{$data['n_address']}%20{$address_path},%20{$data['city']},%20{$data['country']}.json?key={$apiKey}";
         $coordinate_json = file_get_contents($coordinate_path);
         $coordinate_obj = json_decode($coordinate_json);
-        array_push($apartment->latitude, $coordinate_obj->results->position->lat);
-        array_push($apartment->longitude, $coordinate_obj->results->position->lon);
+        $apartment->latitude = $coordinate_obj->results[0]->position->lat;
+        $apartment->longitude = $coordinate_obj->results[0]->position->lon;
+        $apartment->user_id = $id;
+        if (array_key_exists('visible', $data)) {
+            $apartment->visible = true;
+        }
         $apartment->save();
 
 
@@ -73,7 +80,7 @@ class ApartmentController extends Controller
             $apartment->services()->attach($data['services']);
         }
 
-        return redirect()->route('admin.apartments.show', $apartment);
+        return redirect()->route('admin.apartments.index', $apartment);
     }
 
     /**
@@ -96,8 +103,17 @@ class ApartmentController extends Controller
     public function edit(Apartment $apartment)
     {
         $services = Service::all();
-        // $apartment_service_id = $apartment->services->pluck('id')->toArray();
-        return view('admin.apartments.form', compact('apartment', 'services'));
+        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        $addresses = [];
+
+        $address_path = "https://api.tomtom.com/search/2/reverseGeocode/{$apartment->latitude},{$apartment->longitude}.json?key={$apiKey}";
+                $address_json = file_get_contents($address_path);
+                $address_obj = json_decode($address_json);
+                array_push($addresses, $address_obj->addresses[0]->address->street);
+                array_push($addresses, $address_obj->addresses[0]->address->country);
+                array_push($addresses, $address_obj->addresses[0]->address->municipality);
+                array_push($addresses, $address_obj->addresses[0]->address->streetNumber);
+        return view('admin.apartments.form', compact('apartment', 'services', 'addresses'));
     }
 
     /**
@@ -109,16 +125,32 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
-        $request->validated();
+        $id = Auth::id();
+        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        // $request->validated();
         $data = $request->all();
         
         $apartment->update($data);
+
+        $address_path = str_replace(" ", "%20", $data['address']);
+        $coordinate_path = "https://api.tomtom.com/search/2/geocode/{$data['n_address']}%20{$address_path},%20{$data['city']},%20{$data['country']}.json?key={$apiKey}";
+        $coordinate_json = file_get_contents($coordinate_path);
+        $coordinate_obj = json_decode($coordinate_json);
+        $apartment->latitude = $coordinate_obj->results[0]->position->lat;
+        $apartment->longitude = $coordinate_obj->results[0]->position->lon;
+        $apartment->user_id = $id;
+        if (array_key_exists('visible', $data)) {
+            $apartment->visible = true;
+        }
+        $apartment->save();
         
         if (array_key_exists('services', $data)) {
-            $apartment->services()->attach($data['services']);
+            $apartment->services()->sync($data['services']);
+        } else {
+            $apartment->services()->detach();
         }
 
-        return redirect()->route('admin.apartments.show', $apartment);
+        return redirect()->route('admin.apartments.index', $apartment);
     }
 
     /**
@@ -128,7 +160,8 @@ class ApartmentController extends Controller
     //  * @return \Illuminate\Http\Response
      */
     public function destroy(Apartment $apartment)
-    {
+    {   
+        $apartment->services()->detach();
         $apartment->delete();
         return redirect()->route('admin.apartments.index');
     }

@@ -40,7 +40,7 @@
                         <div class="col-4">
                             <label for="country" class="form-label">Nazione</label>
                             <input type="text" class="form-control @error('country') is-invalid @enderror" id="country"
-                                name="country" value="{{-- {{ old('country') ?? $apartment->country }} --}}" required />
+                                name="country" value="{{ old($addresses[1]) ?? $addresses[1] }}" required />
                             @error('country')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -48,7 +48,7 @@
                         <div class="col-4">
                             <label for="city" class="form-label">Città</label>
                             <input type="text" class="form-control @error('city') is-invalid @enderror" id="city"
-                                name="city" value="{{-- {{ old('city') ?? $apartment->city }} --}}" required />
+                                name="city" value="{{ old($addresses[2]) ?? $addresses[2] }}" required />
                             @error('city')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -58,7 +58,7 @@
                         <div class="col-6">
                             <label for="address" class="form-label">Via</label>
                             <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
-                                name="address" value="{{-- {{ old('address') ?? $apartment->address }} --}}" required />
+                                name="address" value="{{ old($addresses[0]) ?? $addresses[0] }}" required />
                             @error('address')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -66,7 +66,7 @@
                         <div class="col-2">
                             <label for="n_address" class="form-label">Civico</label>
                             <input type="text" class="form-control @error('n_address') is-invalid @enderror"
-                                id="n_address" name="n_address" value="{{-- {{ old('n_address') ?? $apartment->n_address }} --}}" required />
+                                id="n_address" name="n_address" value="{{ old($addresses[3]) ?? $addresses[3] }}" required />
                             @error('n_address')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -102,7 +102,7 @@
                         </div>
                         <div class="col-2">
                             <label for="square_mts" class="form-label">Metri quadri</label>
-                            <input type="number" min="1" max="3"
+                            <input type="number" min="80" max="170"
                                 class="form-control @error('square_mts') is-invalid @enderror" id="square_mts"
                                 name="square_mts" value="{{ old('square_mts') ?? $apartment->square_mts }}" required />
                             @error('square_mts')
@@ -131,8 +131,8 @@
                             </section>
                         </div>
                         <div class="col-3">
-                            <input class="form-check-input" type="checkbox" value="" name="visible"
-                                id="visible">
+                            <input class="form-check-input" type="checkbox" value="1" name="visible"
+                                id="visible" {{$apartment->visible ? 'checked' : ''}}>
                             <label class="form-check-label" for="visible">
                                 Mettere tra i pubblicati
                             </label>
@@ -143,7 +143,7 @@
                     @foreach ($services as $service)
                         <input type="checkbox" id="services-{{ $service->id }}" name="services[]"
                             value="{{ $service->id }}" class="form-check-input @error('services') is-invalid @enderror"
-                            {{ in_array($service->id, old('services', $service->services->pluck('id')->toArray())) ? 'checked' : '' }}>
+                            {{ in_array($service->id, old('services', $apartment->services->pluck('id')->toArray())) ? 'checked' : '' }}>
                         <label for="services-{{ $service->id }}"
                             class="form-check-label">{{ $service->name }}</label><br>
                     @endforeach
