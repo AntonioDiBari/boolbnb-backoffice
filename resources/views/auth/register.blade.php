@@ -18,7 +18,7 @@
                                 <div class="col-md-6">
                                     <input id="name" type="text"
                                         class="form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ old('name') }}" required autocomplete="name" ddv-required="true"  onblur="fieldValidate(this)" autofocus>
+                                        value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -53,8 +53,8 @@
                                     <input id="date_of_birth" type="date"
                                         class="form-control @error('date_of_birth') is-invalid @enderror"
                                         name="date_of_birth" value="{{ old('date_of_birth') }}" required
-                                        autocomplete="date_of_birth" autofocus>
-
+                                        autocomplete="date_of_birth" onblur="validateDateOfBirth()" autofocus>
+                                        
                                     @error('date_of_birth')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -123,5 +123,20 @@
 @endsection
 
 @section('js')
-<script  type="text/javascript" src="{{ asset('/js/dataValidaton.js') }}"></script>
+<script>
+    function validateDateOfBirth() {
+        const userDOB = document.getElementById("date_of_birth");
+        const dateOfBirth = userDOB.valueAsDate;
+        const currentDate = new Date();
+
+        if(dateOfBirth >= currentDate || dateOfBirth == currentDate) {
+            alert("Inserisci una data valida");
+            field.focus();
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+</script>
 @endsection
