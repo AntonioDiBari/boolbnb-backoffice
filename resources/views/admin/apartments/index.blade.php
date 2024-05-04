@@ -1,19 +1,5 @@
 @extends('layouts.app')
 
-@section('js')
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-        function getAddress() {
-            axios.get(
-                'https://api.tomtom.com/search/2/reverseGeocode/44.06404,12.5724.json?key=J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt'
-            ).then((response) => {
-                console.log(response.data.addresses)
-            })
-        };
-        console.log(getAddress());
-    </script>
-@endsection
-
 @section('content')
     <div class="container my-3">
 
@@ -27,9 +13,8 @@
                     <th scope="col">Metri Quadri</th>
                     <th scope="col">IMG</th>
                     <th scope="col">Pubbliccato</th>
-                    {{-- <th scope="col">Latitudine</th>
-                    <th scope="col">Longitudine</th> --}}
                     <th scope="col">Indirizzo</th>
+                    <th scope="col">Servizi</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,9 +27,14 @@
                         <td>{{ $apartment->square_mts }}</td>
                         <td>{{ $apartment->img }}</td>
                         <td>{{ $apartment->visible }}</td>
-                        {{-- <td>{{ $apartment->latitude }}</td>
-                        <td>{{ $apartment->longitude }}</td> --}}
                         <td>{{ $addresses[$key] }}</td>
+                        <td>
+                            <ul>
+                                @foreach ($apartment->services as $service)
+                                <li>{{ $service->name }}</li>
+                                @endforeach
+                            </ul>
+                        </td>
                     </tr>
                 @empty
                     <tr>
