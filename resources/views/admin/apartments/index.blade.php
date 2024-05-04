@@ -33,7 +33,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($apartments as $key=>$apartment)
+                @forelse ($apartments as $apartment)
                     <tr>
                         <td>{{ $apartment->title_desc }}</td>
                         <td>{{ $apartment->n_rooms }}</td>

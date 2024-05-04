@@ -18,7 +18,7 @@
                                 <div class="col-md-6">
                                     <input id="name" type="text"
                                         class="form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                        value="{{ old('name') }}" required autocomplete="name" ddv-required="true"  onblur="fieldValidate(this)" autofocus>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -120,4 +120,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+<script  type="text/javascript" src="{{ asset('/js/dataValidaton.js') }}"></script>
 @endsection
