@@ -16,8 +16,7 @@
                                     class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text"
-                                        class="form-control" name="name"
+                                    <input id="name" type="text" class="form-control" name="name"
                                         value="{{ old('name') }}" autocomplete="off" autofocus>
                                 </div>
                             </div>
@@ -27,8 +26,7 @@
                                     class="col-md-4 col-form-label text-md-right">{{ __('Surname') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="surname" type="text"
-                                        class="form-control " name="surname"
+                                    <input id="surname" type="text" class="form-control " name="surname"
                                         value="{{ old('surname') }}" autocomplete="off" autofocus>
                                 </div>
                             </div>
@@ -38,10 +36,8 @@
                                     class="col-md-4 col-form-label text-md-right">{{ __('Date of birth') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="date_of_birth" type="date"
-                                        class="form-control "
-                                        name="date_of_birth" value="{{ old('date_of_birth') }}" 
-                                        autocomplete="date_of_birth" autofocus>
+                                    <input id="date_of_birth" type="date" class="form-control " name="date_of_birth"
+                                        value="{{ old('date_of_birth') }}" autocomplete="date_of_birth" autofocus>
                                 </div>
                             </div>
 
@@ -55,9 +51,9 @@
                                         value="{{ old('email') }}" required autocomplete="email">
 
                                     @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
                             </div>
@@ -67,9 +63,8 @@
                                     class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password"
-                                        class="form-control " name="password"
-                                        required autocomplete="new-password">
+                                    <input id="password" type="password" class="form-control " name="password" required
+                                        autocomplete="new-password">
                                 </div>
                             </div>
 
@@ -99,64 +94,67 @@
 @endsection
 
 @section('js')
-<script>
-    const regForm = document.getElementById('register-form');
+    <script>
+        const regForm = document.getElementById('register-form');
 
-    regForm.addEventListener("submit", function(event) {
-        event.preventDefault();
+        regForm.addEventListener("submit", function(event) {
+            event.preventDefault();
 
-        const { date_of_birth, email, password, password_confirmation } = regForm.elements;
+            const {
+                date_of_birth,
+                email,
+                password,
+                password_confirmation
+            } = regForm.elements;
 
-        if(!isValidEmail(email.value)) {
-            alert("L'email inserita non è valida.");
-            return;
+            if (!isValidEmail(email.value)) {
+                alert("L'email inserita non è valida.");
+                return;
+            }
+
+            if (!isStrongPassword(password.value)) {
+                alert("La password inserita non è sicura!");
+                return;
+            }
+
+            if (!isEqualPassword(password.value, password_confirmation.value)) {
+                alert("Le password non corrispondono!");
+                return;
+            }
+
+            if (!validateDateOfBirth(date_of_birth.valueAsDate)) {
+                alert("La data di nascita inserita non è corretta.")
+                return;
+            }
+
+            regForm.submit();
+            regForm.reset();
+        })
+
+        function validateDateOfBirth(dateOfBirth) {
+            const currentDate = new Date();
+
+            if (dateOfBirth >= currentDate || dateOfBirth == currentDate) {
+                return false;
+            } else {
+                return true;
+            }
         }
 
-        if(!isStrongPassword(password.value)) {
-            alert("La password inserita non è sicura!");
-            return;
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
 
-        if(!isEqualPassword(password.value, password_confirmation.value)) {
-            alert("Le password non corrispondono!");
-            return;
+        function isStrongPassword(password) {
+            return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/.test(password);
         }
 
-        if(!validateDateOfBirth(date_of_birth.valueAsDate)) {
-            alert("La data di nascita inserita non è corretta.")
-            return;
+        function isEqualPassword(password, confirmPass) {
+            if (confirmPass != password) {
+                return false;
+            } else {
+                return true;
+            }
         }
-
-        regForm.submit();          
-        regForm.reset();
-    })
-
-    function validateDateOfBirth(dateOfBirth) {
-        const currentDate = new Date();
-
-        if(dateOfBirth >= currentDate || dateOfBirth == currentDate) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-
-    function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-    function isStrongPassword(password) {
-        return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/.test(password);
-}
-
-    function isEqualPassword(password, confirmPass) {
-        if(confirmPass != password) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-</script>
+    </script>
 @endsection
