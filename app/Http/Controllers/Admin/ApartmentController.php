@@ -102,13 +102,16 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
+        if (Auth::user()->id != $apartment->user_id)
+            abort(403);
+
         $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
-            $address = [];
-                $address_path = "https://api.tomtom.com/search/2/reverseGeocode/{$apartment->latitude},{$apartment->longitude}.json?key={$apiKey}";
-                $address_json = file_get_contents($address_path);
-                $address_obj = json_decode($address_json);
-                array_push($address, $address_obj->addresses[0]->address->freeformAddress);
-            
+        $address = [];
+        $address_path = "https://api.tomtom.com/search/2/reverseGeocode/{$apartment->latitude},{$apartment->longitude}.json?key={$apiKey}";
+        $address_json = file_get_contents($address_path);
+        $address_obj = json_decode($address_json);
+        array_push($address, $address_obj->addresses[0]->address->freeformAddress);
+
         return view('admin.apartments.show', compact('apartment', 'address'));
     }
 
@@ -120,6 +123,8 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
+        if (Auth::user()->id != $apartment->user_id)
+            abort(403);
         $services = Service::all();
         $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
         $addresses = [];
