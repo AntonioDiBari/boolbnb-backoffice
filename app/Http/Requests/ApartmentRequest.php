@@ -25,10 +25,10 @@ class ApartmentRequest extends FormRequest
     {
         return [
             'title_desc' => 'required|string|max:60|min:4',
-            'n_rooms' => 'required|numeric|min:1|max:5',
-            'n_bathrooms' => 'required|numeric|min:1|max:3',
-            'n_beds' => 'required|numeric|min:1|max:4',
-            'square_mts' => 'required|numeric|min:80|max:170',
+            'n_rooms' => 'required|numeric|min:1|max:255',
+            'n_bathrooms' => 'required|numeric|min:1|max:255',
+            'n_beds' => 'required|numeric|min:1|max:255',
+            'square_mts' => 'required|numeric|min:80|max:255',
             'img' => 'nullable|image',
             'visible' => 'boolean',
             'services' => 'required'

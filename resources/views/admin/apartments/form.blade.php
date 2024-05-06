@@ -16,7 +16,7 @@
         <h1>{{ empty($apartment->id) ? 'Aggiungi Appartamento' : 'Modifica Appartamento' }}</h1>
         <form
             action="{{ empty($apartment->id) ? route('admin.apartments.store') : route('admin.apartments.update', $apartment) }}"
-            method="POST" enctype="multipart/form-data">
+            method="POST" enctype="multipart/form-data" id="apartment-form">
             @csrf
 
             @if (!empty($apartment->id))
@@ -30,7 +30,7 @@
                             <label for="title_desc" class="form-label">Nome Appartamento</label>
                             <input type="text" class="form-control @error('title_desc') is-invalid @enderror"
                                 id="title_desc" name="title_desc" value="{{ old('title_desc') ?? $apartment->title_desc }}"
-                                required />
+                                />
                             @error('title_desc')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -83,7 +83,7 @@
                     <div class="row">
                         <div class="col-2">
                             <label for="n_rooms" class="form-label">N° Stanze</label>
-                            <input type="number" min="1" max="5"
+                            <input type="number"
                                 class="form-control @error('n_rooms') is-invalid @enderror" id="n_rooms" name="n_rooms"
                                 value="{{ old('n_rooms') ?? $apartment->n_rooms }}" required />
                             @error('n_rooms')
@@ -92,7 +92,7 @@
                         </div>
                         <div class="col-2">
                             <label for="n_bathrooms" class="form-label">N° Bagni</label>
-                            <input type="number" min="1" max="3"
+                            <input type="number" 
                                 class="form-control @error('n_bathrooms') is-invalid @enderror" id="n_bathrooms"
                                 name="n_bathrooms" value="{{ old('n_bathrooms') ?? $apartment->n_bathrooms }}" required />
                             @error('n_bathrooms')
@@ -101,7 +101,7 @@
                         </div>
                         <div class="col-2">
                             <label for="n_beds" class="form-label">N° Letti</label>
-                            <input type="number" min="1" max="4"
+                            <input type="number" 
                                 class="form-control @error('n_beds') is-invalid @enderror" id="n_beds" name="n_beds"
                                 value="{{ old('n_beds') ?? $apartment->n_beds }}" required />
                             @error('n_beds')
@@ -110,7 +110,7 @@
                         </div>
                         <div class="col-2">
                             <label for="square_mts" class="form-label">Metri quadri</label>
-                            <input type="number" min="80" max="170"
+                            <input type="number" 
                                 class="form-control @error('square_mts') is-invalid @enderror" id="square_mts"
                                 name="square_mts" value="{{ old('square_mts') ?? $apartment->square_mts }}" required />
                             @error('square_mts')
@@ -160,9 +160,67 @@
                     @enderror
                 </div>
                 <div class="col-3">
-                    <button class="btn btn-secondary">{{ empty($apartment->id) ? 'Aggiungi' : 'Modifica' }}</button>
+                    <button type="submit" class="btn btn-secondary">{{ empty($apartment->id) ? 'Aggiungi' : 'Modifica' }}</button>
                 </div>
             </div>
         </form>
     </div>
+@endsection
+
+@section('js')
+<script>
+    const aptForm = document.getElementById('apartment-form');
+    
+    aptForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+    
+        const { title_desc, n_rooms, n_bathrooms, n_beds, square_mts  } = aptForm.elements;
+        
+        if(isEmpty(title_desc)) {
+            alert("Il titolo non può essere vuoto!");
+            return;
+        }
+
+        if(isNegative(n_rooms) || (n_rooms == 0 || n_rooms > 250)) {
+            alert("Inserire un valore valido");
+            return;
+        }
+
+        if(isNegative(n_bathrooms) || (n_bathrooms == 0 || n_bathrooms > 250)) {
+            alert("Inserire un valore valido");
+            return;
+        }
+
+        if(isNegative(n_beds) || (n_beds == 0 || n_beds > 250)) {
+            alert("Inserire un valore valido");
+            return;
+        }
+
+        if(isNegative(square_mts) || (square_mts == 0 || square_mts > 250)) {
+            alert("Inserire un valore valido");
+            return;
+        }
+
+        aptForm.submit();          
+        aptForm.reset();
+    })
+
+    function isEmpty(string) {
+        if(string.length == 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function isNegative(number) {
+        if(number < 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+</script>
 @endsection
