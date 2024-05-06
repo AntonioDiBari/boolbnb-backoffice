@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             $user->surname = $surnames[$i];
             $user->date_of_birth = $dates[$i];
             $user->email = $emails[$i];
-            $user->password = Hash::make("Boolean117");
+            $user->password = Hash::make("Boolean117!");
 
             $user->save();
         }
