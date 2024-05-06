@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ApartmentController;
+use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Guest\DashboardController as GuestDashboardController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Route::middleware('auth')
   ->group(function () {
 
     Route::resource('apartments', ApartmentController::class);
+    Route::resource('messages', MessageController::class);
 
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])
       ->name('dashboard');
