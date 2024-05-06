@@ -5,6 +5,7 @@ use App\Http\Controllers\Guest\DashboardController as GuestDashboardController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\SliderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,20 +18,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 // # Rotte pubbliche
-Route::get('/', [GuestDashboardController::class, 'index'])
-  ->name('home');
+Route::get('/', [GuestDashboardController::class, 'index'])->name('home');
+
+Route::get('/get-image-urls', [SliderController::class, 'getImageUrls']);
 
 // # Rotte protette
 Route::middleware('auth')
-  ->prefix('/admin')
-  ->name('admin.')
-  ->group(function () {
+    ->prefix('/admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::resource('apartments', ApartmentController::class);
 
-    Route::resource('apartments', ApartmentController::class);
-
-    Route::get('/dashboard', [AdminDashboardController::class, 'index'])
-      ->name('dashboard');
-
-  });
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    });
 
 require __DIR__ . '/auth.php';
