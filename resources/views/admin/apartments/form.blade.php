@@ -40,7 +40,9 @@
                         <div class="col-4">
                             <label for="country" class="form-label">Nazione</label>
                             <input type="text" class="form-control @error('country') is-invalid @enderror" id="country"
-                                name="country" value="{{ old($addresses[1]) ?? $addresses[1] }}" required />
+                                name="country"
+                                @if (isset($addresses)) value="{{ old($addresses[1]) ?? $addresses[1] }}" @endif
+                                required />
                             @error('country')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -48,7 +50,9 @@
                         <div class="col-4">
                             <label for="city" class="form-label">Città</label>
                             <input type="text" class="form-control @error('city') is-invalid @enderror" id="city"
-                                name="city" value="{{ old($addresses[2]) ?? $addresses[2] }}" required />
+                                name="city"
+                                @if (isset($addresses)) value="{{ old($addresses[2]) ?? $addresses[2] }}" @endif
+                                required />
                             @error('city')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -58,7 +62,9 @@
                         <div class="col-6">
                             <label for="address" class="form-label">Via</label>
                             <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
-                                name="address" value="{{ old($addresses[0]) ?? $addresses[0] }}" required />
+                                name="address"
+                                @if (isset($addresses)) value="{{ old($addresses[0]) ?? $addresses[0] }}" @endif
+                                required />
                             @error('address')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -66,7 +72,9 @@
                         <div class="col-2">
                             <label for="n_address" class="form-label">Civico</label>
                             <input type="text" class="form-control @error('n_address') is-invalid @enderror"
-                                id="n_address" name="n_address" value="{{ old($addresses[3]) ?? $addresses[3] }}" required />
+                                id="n_address" name="n_address"
+                                @if (isset($addresses)) value="{{ old($addresses[3]) ?? $addresses[3] }}" @endif
+                                required />
                             @error('n_address')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -132,7 +140,7 @@
                         </div>
                         <div class="col-3">
                             <input class="form-check-input" type="checkbox" value="1" name="visible"
-                                id="visible" {{$apartment->visible ? 'checked' : ''}}>
+                                id="visible" {{ $apartment->visible ? 'checked' : '' }}>
                             <label class="form-check-label" for="visible">
                                 Mettere tra i pubblicati
                             </label>
