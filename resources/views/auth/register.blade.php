@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Register') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
+                        <form id="register-form" method="POST" action="{{ route('register') }}">
                             @csrf
 
                             <div class="mb-4 row">
@@ -17,14 +17,8 @@
 
                                 <div class="col-md-6">
                                     <input id="name" type="text"
-                                        class="form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                        class="form-control" name="name"
+                                        value="{{ old('name') }}" autocomplete="name" autofocus>
                                 </div>
                             </div>
 
@@ -34,14 +28,8 @@
 
                                 <div class="col-md-6">
                                     <input id="surname" type="text"
-                                        class="form-control @error('surname') is-invalid @enderror" name="surname"
-                                        value="{{ old('surname') }}" required autocomplete="surname" autofocus>
-
-                                    @error('surname')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                        class="form-control " name="surname"
+                                        value="{{ old('surname') }}" autocomplete="surname" autofocus>
                                 </div>
                             </div>
 
@@ -51,15 +39,9 @@
 
                                 <div class="col-md-6">
                                     <input id="date_of_birth" type="date"
-                                        class="form-control @error('date_of_birth') is-invalid @enderror"
-                                        name="date_of_birth" value="{{ old('date_of_birth') }}" required
-                                        autocomplete="date_of_birth" onblur="validateDateOfBirth()" autofocus>
-                                        
-                                    @error('date_of_birth')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                        class="form-control "
+                                        name="date_of_birth" value="{{ old('date_of_birth') }}" 
+                                        autocomplete="date_of_birth" autofocus>
                                 </div>
                             </div>
 
@@ -69,14 +51,8 @@
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
+                                        class="form-control " name="email"
                                         value="{{ old('email') }}" required autocomplete="email">
-
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
                             </div>
 
@@ -86,14 +62,8 @@
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
+                                        class="form-control " name="password"
                                         required autocomplete="new-password">
-
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
                             </div>
 
@@ -109,7 +79,7 @@
 
                             <div class="mb-4 row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button id="btn-form" type="submit" class="btn btn-primary">
                                         {{ __('Register') }}
                                     </button>
                                 </div>
@@ -124,14 +94,60 @@
 
 @section('js')
 <script>
-    function validateDateOfBirth() {
-        const userDOB = document.getElementById("date_of_birth");
-        const dateOfBirth = userDOB.valueAsDate;
+    const regForm = document.getElementById('register-form');
+
+    regForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const { date_of_birth, email, password, password_confirmation } = regForm.elements;
+
+        if(!isValidEmail(email.value)) {
+            alert("L'email inserita non è valida.");
+            return;
+        }
+
+        if(!isStrongPassword(password.value)) {
+            alert("La password inserita non è sicura!");
+            return;
+        }
+
+        if(!isEqualPassword(password.value, password_confirmation.value)) {
+            alert("Le password non corrispondono!");
+            return;
+        }
+
+        if(!validateDateOfBirth(date_of_birth.valueAsDate)) {
+            alert("La data di nascita inserita non è corretta.")
+            return;
+        }
+
+        alert("Registration successful!");
+          regForm.submit();          
+          regForm.reset();
+
+    })
+
+    function validateDateOfBirth(dateOfBirth) {
         const currentDate = new Date();
 
         if(dateOfBirth >= currentDate || dateOfBirth == currentDate) {
-            alert("Inserisci una data valida");
-            field.focus();
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+    function isStrongPassword(password) {
+        return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/.test(password);
+}
+
+    function isEqualPassword(password, confirmPass) {
+        if(confirmPass != password) {
             return false;
         }
         else {
