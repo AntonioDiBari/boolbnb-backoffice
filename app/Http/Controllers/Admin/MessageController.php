@@ -13,11 +13,12 @@ class MessageController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function index()
     {
-        //
+        $messages = Message::paginate(10);
+        return view('admin.messages.index', compact('messages'));
     }
 
     /**
@@ -45,11 +46,11 @@ class MessageController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Message  $message
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function show(Message $message)
     {
-        //
+        return view('admin.messages.show', compact('message'));
     }
 
     /**
