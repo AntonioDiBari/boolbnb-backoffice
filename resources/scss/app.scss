@@ -1,5 +1,12 @@
 @import "~bootstrap/scss/bootstrap";
 
+.text-color {
+    color: rgb(103, 103, 255);
+}
+.btn-primary {
+    background-color: rgb(103, 103, 255);
+}
+
 .wrapper {
     min-height: 100vh;
     display: flex;
@@ -7,5 +14,24 @@
 
     main {
         flex-grow: 1;
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .primary-col:hover {
+            cursor: pointer;
+            opacity: 0.8;
+            transition: 0.5s;
+        }
+        .desc-box {
+            height: 100%;
+        }
     }
 }
