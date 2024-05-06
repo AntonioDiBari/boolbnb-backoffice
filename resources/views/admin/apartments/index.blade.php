@@ -1,85 +1,49 @@
 @extends('layouts.app')
+@section('title', 'I miei appartamenti')
 
 @section('content')
     <div class="container my-3">
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Nome Appartamento</th>
-                    <th scope="col">N° Stanze</th>
-                    <th scope="col">N° Bagni</th>
-                    <th scope="col">N° Letti</th>
-                    <th scope="col">Metri Quadri</th>
-                    <th scope="col">IMG</th>
-                    <th scope="col">Pubbliccato</th>
-                    <th scope="col">Indirizzo</th>
-                    <th scope="col">Servizi</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($apartments as $key=>$apartment)
-                    <tr>
-                        <td>{{ $apartment->title_desc }}</td>
-                        <td>{{ $apartment->n_rooms }}</td>
-                        <td>{{ $apartment->n_bathrooms }}</td>
-                        <td>{{ $apartment->n_beds }}</td>
-                        <td>{{ $apartment->square_mts }}</td>
-                        <td>{{ $apartment->img }}</td>
-                        <td>{{ $apartment->visible }}</td>
-                        <td>{{ $addresses[$key] }}</td>
-                        <td>
-                            <ul>
-                                @foreach ($apartment->services as $service)
-                                <li>{{ $service->name }}</li>
-                                @endforeach
-                            </ul>
-                        </td>
-                        <td class="d-flex gap-2">
-                            <a href="{{ route('admin.apartments.edit', $apartment) }}">
-                                <i class="fa-solid fa-pencil text-primary"></i>
-                            </a>
-                            <div data-bs-toggle="modal" data-bs-target="#delete-{{ $apartment->id }}-apartment">
-                                <i class="fa-solid fa-trash text-danger"></i>
-                            </div>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td>Nessun Risultato</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-@endsection
-
-@section('modal')
-    @foreach ($apartments as $apartment)
-        <div class="modal fade" id="delete-{{ $apartment->id }}-apartment" tabindex="-1"
-            aria-labelledby="delete-{{ $apartment->id }}-apartment" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="delete-{{ $apartment->id }}-apartment">
-                            Eliminare {{ $apartment->title_desc }} ?</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Se confermi non potrai tornare indietro.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-                        <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <div class="d-flex justify-content-between">
+            <h1 class="fs-3"><strong>Lista appartamenti</strong></h1>
+            <a href="{{ route('admin.apartments.create') }}">
+                <div class="btn btn-primary">Inserisci Appartamento</div>
+            </a>
         </div>
-    @endforeach
+        <div class="container alert-container">
+            @if (session('message'))
+                <div class="alert {{ session('type') }} alert-dismissible my-2">
+                    {{ session('message') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+        </div>
+        <div class="row">
+            @forelse ($apartments as $key=>$apartment)
+            <div class="primary-col col-6 g-4 border-bottom pb-2">
+                <a href="{{ route('admin.apartments.show', $apartment) }}">
+                    <div class="card h-100 border-0">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="rounded-2 overflow-hidden">
+                                    <img class="img-fluid" src="https://picsum.photos/250/150" alt="">
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="card-body p-0 pt-1 d-flex flex-column justify-content-between">
+                                    <div>
+                                        <h2 class="fs-5"><strong>{{ $apartment->title_desc }}</strong></h2>
+                                        <p class="m-0">{{ $addresses[$key] }}</p>
+                                    </div>
+                                    <p class="m-0">{{ $apartment->square_mts }}mt²</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            @empty
+                <h1>Nessun appartamento</h1>
+            @endforelse
+        </div>
+    </div>
 @endsection
