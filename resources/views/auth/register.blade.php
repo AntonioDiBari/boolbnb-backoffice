@@ -18,7 +18,7 @@
                                 <div class="col-md-6">
                                     <input id="name" type="text"
                                         class="form-control" name="name"
-                                        value="{{ old('name') }}" autocomplete="name" autofocus>
+                                        value="{{ old('name') }}" autocomplete="off" autofocus>
                                 </div>
                             </div>
 
@@ -29,7 +29,7 @@
                                 <div class="col-md-6">
                                     <input id="surname" type="text"
                                         class="form-control " name="surname"
-                                        value="{{ old('surname') }}" autocomplete="surname" autofocus>
+                                        value="{{ old('surname') }}" autocomplete="off" autofocus>
                                 </div>
                             </div>
 
@@ -51,8 +51,14 @@
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
-                                        class="form-control " name="email"
+                                        class="form-control @error('email') is-invalid @enderror" name="email"
                                         value="{{ old('email') }}" required autocomplete="email">
+
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -121,10 +127,8 @@
             return;
         }
 
-        alert("Registration successful!");
-          regForm.submit();          
-          regForm.reset();
-
+        regForm.submit();          
+        regForm.reset();
     })
 
     function validateDateOfBirth(dateOfBirth) {
