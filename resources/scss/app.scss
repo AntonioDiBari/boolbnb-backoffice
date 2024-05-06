@@ -1,5 +1,12 @@
 @import "~bootstrap/scss/bootstrap";
 
+.text-color {
+    color: rgb(103, 103, 255);
+}
+.btn-primary {
+    background-color: rgb(103, 103, 255);
+}
+
 .wrapper {
     min-height: 100vh;
     display: flex;
@@ -10,6 +17,7 @@
         width: 100%;
         height: 100%;
         flex-grow: 1;
+
         background-color: #7cc6f2;
         .container-home-page{
 
@@ -52,6 +60,27 @@
     .header {
        
         background-color: #7cc6f2;
+
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .primary-col:hover {
+            cursor: pointer;
+            opacity: 0.8;
+            transition: 0.5s;
+        }
+        .desc-box {
+            height: 100%;
+        }
+
     }
     
     
