@@ -21,16 +21,16 @@ class MessageSeeder extends Seeder
 
         // prendo gli appartamenti e gli user
         $apartments = Apartment::all();
-        $user = User::all();
 
         // genero 10 messaggi per appartamento
         foreach ($apartments as $apartment) {
             for ($i = 0; $i < 10; $i++) {
                 $message = new Message;
                 $message->apartment_id = $apartment->id;
-                $message->email = $user->email;
+                $message->email = $faker->email();
                 $message->body = $faker->paragraph;
                 $message->sent = $faker->dateTimeBetween('-1month', 'now');
+                $message->save();
             }
         }
     }
