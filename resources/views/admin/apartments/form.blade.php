@@ -37,6 +37,21 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-8 position-relative">
+                            <label for="address" class="form-label">Indirizzo</label>
+                            <div id="searchbox">
+
+                            </div>
+                            {{-- <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
+                                name="address" value="" />
+                            <div class="autocomplete-drop form-control">
+                            </div> --}}
+                            @error('address')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    {{-- <div class="row">
                         <div class="col-4">
                             <label for="country" class="form-label">Nazione</label>
                             <input type="text" class="form-control @error('country') is-invalid @enderror" id="country"
@@ -79,7 +94,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row">
                         <div class="col-2">
                             <label for="n_rooms" class="form-label">N° Stanze</label>
@@ -139,8 +154,8 @@
                             </section>
                         </div>
                         <div class="col-3">
-                            <input class="form-check-input" type="checkbox" value="1" name="visible"
-                                id="visible" {{ $apartment->visible ? 'checked' : '' }}>
+                            <input class="form-check-input" type="checkbox" value="1" name="visible" id="visible"
+                                {{ $apartment->visible ? 'checked' : '' }}>
                             <label class="form-check-label" for="visible">
                                 Mettere tra i pubblicati
                             </label>
@@ -168,7 +183,38 @@
     </div>
 @endsection
 
+@section('css')
+    <link rel="stylesheet" type="text/css"
+        href="https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.1.3-public-preview.0/SearchBox.css" />
+@endsection
+
 @section('js')
+    {{-- AUTOCOMPLETAMENTO --}}
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.1.3-public-preview.0/SearchBox-web.js">
+    </script>
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.1.2-public-preview.15/services/services-web.min.js">
+    </script>
+    <script>
+        let options = {
+            searchOptions: {
+                key: "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt",
+                language: "it-IT",
+                limit: 5
+            },
+            autocompleteOptions: {
+                key: "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt",
+                language: "it-IT",
+            },
+        }
+        let ttSearchBox = new tt.plugins.SearchBox(tt.services, options)
+        let searchBoxHTML = ttSearchBox.getSearchBoxHTML()
+        document.getElementById('searchbox').append(searchBoxHTML);
+        const inputBox = document.querySelector('.tt-search-box-input');
+        inputBox.setAttribute('name', 'address');
+        inputBox.setAttribute('id', 'address');
+    </script>
+
+    {{-- VALIDAZIONI CLIENT --}}
     <script>
         const aptForm = document.getElementById('apartment-form');
 

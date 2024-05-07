@@ -64,7 +64,7 @@ class ApartmentController extends Controller
         $apartment->fill($data);
 
         $address_path = str_replace(" ", "%20", $data['address']);
-        $coordinate_path = "https://api.tomtom.com/search/2/geocode/{$data['n_address']}%20{$address_path},%20{$data['city']},%20{$data['country']}.json?key={$apiKey}";
+        $coordinate_path = "https://api.tomtom.com/search/2/geocode/{$address_path}.json?key={$apiKey}";
         $coordinate_json = file_get_contents($coordinate_path);
         $coordinate_obj = json_decode($coordinate_json);
         $apartment->latitude = $coordinate_obj->results[0]->position->lat;
@@ -156,7 +156,7 @@ class ApartmentController extends Controller
         $apartment->update($data);
 
         $address_path = str_replace(" ", "%20", $data['address']);
-        $coordinate_path = "https://api.tomtom.com/search/2/geocode/{$data['n_address']}%20{$address_path},%20{$data['city']},%20{$data['country']}.json?key={$apiKey}";
+        $coordinate_path = "https://api.tomtom.com/search/2/geocode/{$address_path}.json?key={$apiKey}";
         $coordinate_json = file_get_contents($coordinate_path);
         $coordinate_obj = json_decode($coordinate_json);
         $apartment->latitude = $coordinate_obj->results[0]->position->lat;
