@@ -183,27 +183,27 @@
                 square_mts
             } = aptForm.elements;
 
-            if (isEmpty(title_desc)) {
+            if (isEmpty(title_desc.value)) {
                 alert("Il titolo non può essere vuoto!");
                 return;
             }
 
-            if (isNegative(n_rooms) || (n_rooms == 0 || n_rooms > 250)) {
+            if (isNegative(n_rooms.value) || (n_rooms.value == 0 || n_rooms.value > 255)) {
                 alert("Inserire un valore valido");
                 return;
             }
 
-            if (isNegative(n_bathrooms) || (n_bathrooms == 0 || n_bathrooms > 250)) {
+            if (isNegative(n_bathrooms.value) || (n_bathrooms.value == 0 || n_bathrooms.value > 255)) {
                 alert("Inserire un valore valido");
                 return;
             }
 
-            if (isNegative(n_beds) || (n_beds == 0 || n_beds > 250)) {
+            if (isNegative(n_beds.value) || (n_beds.value == 0 || n_beds.value > 255)) {
                 alert("Inserire un valore valido");
                 return;
             }
 
-            if (isNegative(square_mts) || (square_mts == 0 || square_mts > 250)) {
+            if (isNegative(square_mts.value) || (square_mts.value < 10 || square_mts.value > 255)) {
                 alert("Inserire un valore valido");
                 return;
             }
@@ -213,6 +213,7 @@
         })
 
         function isEmpty(string) {
+            console.log(string.length);
             if (string.length == 0) {
                 return true;
             } else {
