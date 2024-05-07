@@ -103,7 +103,7 @@ class ApartmentController extends Controller
     public function show(Apartment $apartment)
     {
         if (Auth::user()->id != $apartment->user_id)
-            abort(403);
+            abort(404);
 
         $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
         $address = [];
@@ -124,7 +124,7 @@ class ApartmentController extends Controller
     public function edit(Apartment $apartment)
     {
         if (Auth::user()->id != $apartment->user_id)
-            abort(403);
+            abort(404);
         $services = Service::all();
         $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
         $addresses = [];

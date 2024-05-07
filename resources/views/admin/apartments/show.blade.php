@@ -8,7 +8,9 @@
             <div class="row  d-flex">
                 <div class="col-6">
                     <div class="img-box rounded-2 overflow-hidden">
-                        <img class="img-fluid w-100" @if (str_starts_with($apartment->img, 'img')) src="{{ asset($apartment->img) }}" @elseif (str_starts_with($apartment->img, 'uploads')) src="{{ asset('storage/' . $apartment->img) }}"  @else src="https://placehold.co/600x400" @endif alt="">
+                        <img class="img-fluid w-100"
+                            @if (str_starts_with($apartment->img, 'img')) src="{{ asset($apartment->img) }}" @elseif (str_starts_with($apartment->img, 'uploads')) src="{{ asset('storage/' . $apartment->img) }}"  @else src="https://placehold.co/600x400" @endif
+                            alt="">
                     </div>
                 </div>
                 <div class="col-6">
@@ -18,16 +20,25 @@
                             <ul>
                                 <p class="text-color m-0"><strong>Servizi:</strong></p>
                                 @foreach ($apartment->services as $service)
-                                <li><span class="text-color">{!! $service->logo !!} </span>{{ $service->name }}</li>
+                                    <li><span class="text-color"><i class="fa-solid fa-{{ $service->logo }}"></i>
+                                        </span>{{ $service->name }}</li>
                                 @endforeach
                             </ul>
                             <table class="table text-center">
                                 <thead>
                                     <tr>
-                                        <th scope="col"><p class="text-color m-0">Stanze</p></th>
-                                        <th scope="col"><p class="text-color m-0">Bagni</p></th>
-                                        <th scope="col"><p class="text-color m-0">Letti</p></th>
-                                        <th scope="col"><p class="text-color m-0">Mt²</p></th>
+                                        <th scope="col">
+                                            <p class="text-color m-0">Stanze</p>
+                                        </th>
+                                        <th scope="col">
+                                            <p class="text-color m-0">Bagni</p>
+                                        </th>
+                                        <th scope="col">
+                                            <p class="text-color m-0">Letti</p>
+                                        </th>
+                                        <th scope="col">
+                                            <p class="text-color m-0">Mt²</p>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,7 +61,8 @@
                                 <a href="{{ route('admin.apartments.edit', $apartment) }}">
                                     <div class="btn btn-success"> <i class="fa-solid fa-pencil"></i> Modifica</div>
                                 </a>
-                                <div class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-{{ $apartment->id }}-apartment">
+                                <div class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#delete-{{ $apartment->id }}-apartment">
                                     <i class="fa-solid fa-trash"></i> Elimina
                                 </div>
                             </div>
@@ -63,28 +75,28 @@
 @endsection
 
 @section('modal')
-        <div class="modal fade" id="delete-{{ $apartment->id }}-apartment" tabindex="-1"
-            aria-labelledby="delete-{{ $apartment->id }}-apartment" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="delete-{{ $apartment->id }}-apartment">
-                            Eliminare {{ $apartment->title_desc }} ?</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Se confermi non potrai tornare indietro.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <div class="modal fade" id="delete-{{ $apartment->id }}-apartment" tabindex="-1"
+        aria-labelledby="delete-{{ $apartment->id }}-apartment" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="delete-{{ $apartment->id }}-apartment">
+                        Eliminare {{ $apartment->title_desc }} ?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Se confermi non potrai tornare indietro.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-                        <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
+                    <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 @endsection

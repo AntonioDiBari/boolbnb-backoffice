@@ -18,43 +18,43 @@ class ServiceSeeder extends Seeder
         $services = [
             [
                 'name' => 'WiFi',
-                'logo' => '<i class="fa-solid fa-wifi"></i>'
+                'logo' => 'wifi'
             ],
             [
                 'name' => 'Posto Macchina',
-                'logo' => '<i class="fa-solid fa-square-parking"></i>'
+                'logo' => 'square-parking'
             ],
             [
                 'name' => 'Piscina',
-                'logo' => '<i class="fa-solid fa-person-swimming"></i>'
+                'logo' => 'person-swimming'
             ],
             [
                 'name' => 'Portineria',
-                'logo' => '<i class="fa-solid fa-bell-concierge"></i>'
+                'logo' => 'bell-concierge'
             ],
             [
                 'name' => 'Sauna',
-                'logo' => '<i class="fa-solid fa-hot-tub-person"></i>'
+                'logo' => 'hot-tub-person'
             ],
             [
                 'name' => 'Vista Mare',
-                'logo' => '<i class="fa-solid fa-water"></i>'
+                'logo' => 'water'
             ],
             [
                 'name' => 'Giardino',
-                'logo' => '<i class="fa-solid fa-seedling"></i>'
+                'logo' => 'seedling'
             ],
             [
                 'name' => 'Ascensore',
-                'logo' => '<i class="fa-solid fa-elevator"></i>'
+                'logo' => 'elevator'
             ],
             [
                 'name' => 'Animali ammessi',
-                'logo' => '<i class="fa-solid fa-paw"></i>'
+                'logo' => 'paw'
             ],
             [
                 'name' => 'Aria Condizionata',
-                'logo' => '<i class="fa-solid fa-snowflake"></i>'
+                'logo' => 'snowflake'
             ],
         ];
 

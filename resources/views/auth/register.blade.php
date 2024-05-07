@@ -86,6 +86,7 @@
                                 </div>
                             </div>
                         </form>
+                        <span>I campi contrassegnati con * sono obbligatori</span>
                     </div>
                 </div>
             </div>
