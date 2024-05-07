@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->boolean('visible')->default(0);
             $table->decimal('latitude', 7, 5);
             $table->decimal('longitude', 8, 5);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
