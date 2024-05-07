@@ -121,7 +121,7 @@
                             <section class="mb-4 d-flex gap-3">
                                 <div>
                                     <label for="img" class="form-label">Immagine rappresentativa
-                                        dell'appartamento</label>
+                                        dell'appartamento (opzionale)</label>
                                     <input class="form-control @error('img') is-invalid @enderror" type="file"
                                         name="img" id="img">
                                     @error('img')
