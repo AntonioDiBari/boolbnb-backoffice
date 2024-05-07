@@ -19,7 +19,7 @@ class MessageSeeder extends Seeder
     public function run(Faker $faker)
     {
 
-        // prendo gli appartamenti e gli user
+        // prendo gli appartamenti
         $apartments = Apartment::all();
 
         // genero 10 messaggi per appartamento
