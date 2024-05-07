@@ -21,7 +21,7 @@ class ApartmentSponsorSeeder extends Seeder
         $sponsors = Sponsor::all()->pluck('id')->toArray();
 
         foreach ($apartments as $apartment) {
-            // $apartment->sponsors()->syncWithPivotValues($faker->randomElement($sponsors),['created' => ]);
+            $apartment->sponsors()->sync($faker->randomElements($sponsors, rand(1, 3)));
         }
     }
 }
