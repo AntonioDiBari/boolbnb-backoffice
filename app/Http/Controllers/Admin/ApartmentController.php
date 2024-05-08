@@ -115,6 +115,7 @@ class ApartmentController extends Controller
         return view('admin.apartments.show', compact('apartment', 'address'));
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
