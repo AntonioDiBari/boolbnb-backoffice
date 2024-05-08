@@ -25,14 +25,17 @@ class ApartmentController extends Controller
 
         $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
         $addresses = [];
+        $sponsors = [];
         foreach ($apartments as $apartment) {
             $address_path = "https://api.tomtom.com/search/2/reverseGeocode/{$apartment->latitude},{$apartment->longitude}.json?key={$apiKey}";
             $address_json = file_get_contents($address_path);
             $address_obj = json_decode($address_json);
             array_push($addresses, $address_obj->addresses[0]->address->freeformAddress);
+            $sponsorsArray = $apartment->sponsors->toArray();
+            array_push($sponsors, $sponsorsArray);
         }
 
-        return view('admin.apartments.index', compact('apartments', 'addresses'));
+        return view('admin.apartments.index', compact('apartments', 'addresses', 'sponsors'));
     }
 
     /**
@@ -111,8 +114,9 @@ class ApartmentController extends Controller
         $address_json = file_get_contents($address_path);
         $address_obj = json_decode($address_json);
         array_push($address, $address_obj->addresses[0]->address->freeformAddress);
+        $sponsor = $apartment->sponsors->toArray();
 
-        return view('admin.apartments.show', compact('apartment', 'address'));
+        return view('admin.apartments.show', compact('apartment', 'address', 'sponsor'));
     }
 
 
