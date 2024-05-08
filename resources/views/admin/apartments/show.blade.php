@@ -7,10 +7,20 @@
             <h1 class="fs-3 text-color"><strong>{{ $apartment->title_desc }}</strong></h1>
             <div class="row  d-flex">
                 <div class="col-6">
-                    <div class="img-box rounded-2 overflow-hidden">
+                    <div class="img-box rounded-2 overflow-hidden position-relative">
                         <img class="img-fluid w-100"
                             @if (str_starts_with($apartment->img, 'img')) src="{{ asset($apartment->img) }}" @elseif (str_starts_with($apartment->img, 'uploads')) src="{{ asset('storage/' . $apartment->img) }}"  @else src="https://placehold.co/600x400" @endif
                             alt="">
+                        @if (!empty($sponsor))
+                            <div @class([
+                                'sponsor-icon',
+                                'standard' => $sponsor[0]['id'] == 1,
+                                'gold' => $sponsor[0]['id'] == 2,
+                                'platinum' => $sponsor[0]['id'] == 3,
+                            ])>
+                                <i class="fa-solid fa-crown fs-2"></i>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-6">
