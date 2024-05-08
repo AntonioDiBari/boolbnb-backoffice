@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Apartment extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use Sluggable;
 
     protected $fillable = ['title_desc', 'user_id', 'n_rooms', 'n_bathrooms', 'n_beds', 'square_mts', 'img', 'visible', 'latitude', 'longitude', 'deleted_at'];
 
@@ -41,5 +43,24 @@ class Apartment extends Model
     public function sponsors()
     {
         return $this->belongsToMany(Sponsor::class);
+    }
+
+        /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title_desc'
+            ]
+        ];
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

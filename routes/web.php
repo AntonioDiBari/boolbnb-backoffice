@@ -34,7 +34,7 @@ Route::middleware('auth')
     Route::resource('messages', MessageController::class);
 
   
-
+       
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     });
 
