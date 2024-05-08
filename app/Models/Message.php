@@ -15,4 +15,9 @@ class Message extends Model
     {
         return $this->belongsTo(Apartment::class);
     }
+
+    public function getAbstract($n_chars = 15)
+    {
+        return (strlen($this->body) > $n_chars) ? substr($this->body, 0, $n_chars) . '...' : $this->body;
+    }
 }
