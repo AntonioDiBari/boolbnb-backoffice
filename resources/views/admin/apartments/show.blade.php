@@ -52,11 +52,10 @@
                             </table>
                         </div>
                         <div class="mt-auto mb-2 d-flex justify-content-between">
-                            <div>
-                                <a href="">
-                                    <button class="btn btn-primary">Messaggi</button>
-                                </a>
-                            </div>
+                            <div class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#message-{{ $apartment->id }}-apartment">
+                                     Messaggi
+                                </div>
                             <div>
                                 <a href="{{ route('admin.apartments.edit', $apartment) }}">
                                     <div class="btn btn-success"> <i class="fa-solid fa-pencil"></i> Modifica</div>
@@ -95,6 +94,63 @@
                         @method('DELETE')
                         <button class="btn btn-danger">Delete</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('modal-msg')
+    <div class="modal fade modal-dialog-scrollable" id="message-{{ $apartment->id }}-apartment" tabindex="-1"
+        aria-labelledby="message-{{ $apartment->id }}-apartment" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="message-{{ $apartment }}-apartment">
+                        Messaggi per {{ $apartment->title_desc }} </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Email</th>
+                                <th scope="col">Body</th>
+                                <th scope="col">Sent</th>
+                                <th scope="col"></th>
+            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($apartment->messages as $message)
+                                <tr>
+            
+                                    <td>{{ $message->email }}</td>
+                                    <td>{{ $message->getAbstract(10) }}</td>
+                                    <td>{{ $message->sent }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.messages.show', $message) }}">
+                                            <i class="fa-solid fa-circle-info text-primary"></i>
+                                        </a>
+                                    </td>
+            
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td>Nessun Messaggio</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    {{-- <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger">Delete</button>
+                    </form> --}}
                 </div>
             </div>
         </div>
