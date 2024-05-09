@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('apartments', ApartmentController::class)->only('index', 'show');
 Route::get('apartment-sponsor', [ApartmentController::class, 'indexSponsor']);
+Route::get('apartment-service', [ApartmentController::class, 'services']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
