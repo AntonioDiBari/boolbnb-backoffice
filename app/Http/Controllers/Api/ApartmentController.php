@@ -13,6 +13,7 @@ class ApartmentController extends Controller
     public function indexSponsor()
     {
         $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+
         $apartments = Apartment::where('visible', true)->whereHas('sponsors')->with(['services:id,name,logo', 'sponsors:id,name,duration,price'])->paginate(12);
 
         $addresses = [];
@@ -65,6 +66,8 @@ class ApartmentController extends Controller
 
         // *****Filtro search-bar*****
         $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
+
         if ($request->has('address') && $request['address'] != "") {
 
             $address_path = str_replace(" ", "%20", $request['address']);
@@ -95,14 +98,13 @@ class ApartmentController extends Controller
 
         $addresses = [];
         // *****Gestione dell'img dell'appartamento*****
-        foreach ($apartments as $apartment) {
+        foreach ($apartments as $index => $apartment) {
             if (str_starts_with($apartment['img'], 'img')) {
-                $apartment['img'] = asset($apartment['img']);
+                $apartments[$index]['img'] = asset($apartment['img']);
             } elseif (str_starts_with($apartment['img'], 'uploads')) {
-                $apartment['img'] = asset('storage/' . $apartment['img']);
-            } elseif ($apartment['img'] = '') {
-                // ******Debug********
-                $apartment['img'] = "https://placehold.co/600x400";
+                $apartments[$index]['img'] = asset('storage/' . $apartment['img']);
+            } elseif ($apartment['img'] == null) {
+                $apartments[$index]['img'] = "https://placehold.co/600x400";
             }
 
             // *****Push di address in apartment*****
@@ -112,6 +114,7 @@ class ApartmentController extends Controller
             array_push($addresses, $address_obj->addresses[0]->address->freeformAddress);
         }
 
+        // dd($apartments);
         return response()->json([
             'success' => true,
             'result' => $apartments,
