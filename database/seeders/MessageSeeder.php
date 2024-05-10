@@ -24,10 +24,10 @@ class MessageSeeder extends Seeder
 
         // genero 10 messaggi per appartamento
         foreach ($apartments as $apartment) {
-            for ($i = 0; $i < 10; $i++) {
+            for ($i = 0; $i < 7; $i++) {
                 $message = new Message;
                 $message->apartment_id = $apartment->id;
-                $message->email = $faker->email();
+                $message->email = $faker->randomElement(['fabio@gmail.com', 'marco@gmail.com', 'simone@gmail.com', 'lorenzo@gmail.com', 'mattia@gmail.com']);
                 $message->body = $faker->paragraph;
                 $message->sent = $faker->dateTimeBetween('-1month', 'now');
                 $message->save();
