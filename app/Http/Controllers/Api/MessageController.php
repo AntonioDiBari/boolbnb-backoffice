@@ -10,31 +10,31 @@ use Illuminate\Support\Facades\Validator;
 
 class MessageController extends Controller
 {
-    public function store(Request $request, Apartment $apartment){
+    public function store(Request $request, $id){
         
         $data = $request->all();
-        $data['apartment_id'] = $apartment->id;
+        $data['apartment_id'] = $id;
 
-        $validator = Validator::make($data, [
-            'email' => ['required', 'email'],
-            'body' => 'required',
-            'sent' => 'required',
-        ]);
+        // $validator = Validator::make($data, [
+        //     'email' => ['required', 'email'],
+        //     'body' => 'required',
+        //     'sent' => 'required',
+        // ]);
 
-        if($validator->fails()){
-            return response()->json([
-                'success' => false,
-                'errors'  => $validator->errors(),
-            ]);
-        }
+        // if($validator->fails()){
+        //     return response()->json([
+        //         'success' => false,
+        //         'errors'  => $validator->errors(),
+        //     ]);
+        // }
 
-        $new_message = new Message();
-        $new_message->apartment_id = $data['apartment_id'];
-        $new_message->fill($data);
-        $new_message->save();
+        // $new_message = new Message();
+        // $new_message->apartment_id = $data['apartment_id'];
+        // $new_message->fill($data);
+        // $new_message->save();
 
         return response()->json([
-            'success' => true,
+            'success' => $data,
         ]);
     }
 }
