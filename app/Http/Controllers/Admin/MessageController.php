@@ -50,7 +50,14 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
-        return view('admin.messages.show', compact('message'));
+       $messages = Message::all()->toArray();
+       $email = $message->email;
+       $apartment_id = $message->apartment_id;
+        $messages_filter = array_filter($messages, function ($mes) use ($email, $apartment_id) {
+
+            return $mes['email'] == $email && $mes['apartment_id'] == $apartment_id;
+        });
+        return view('admin.messages.show', compact('messages_filter'));
     }
 
     /**
