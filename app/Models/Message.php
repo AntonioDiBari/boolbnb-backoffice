@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     use HasFactory;
+    protected $fillable = ['apartment_id', 'email', 'body', 'sent'];
 
     /* un messaggio si riferisce ad un appartamento */
 
