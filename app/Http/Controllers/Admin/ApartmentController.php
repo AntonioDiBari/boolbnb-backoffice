@@ -23,8 +23,8 @@ class ApartmentController extends Controller
         $id = Auth::id();
         $apartments = Apartment::where('user_id', $id)->paginate(10);
 
-        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
-        $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
+        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
         $addresses = [];
         $sponsors = [];
         foreach ($apartments as $apartment) {
@@ -60,8 +60,8 @@ class ApartmentController extends Controller
     public function store(ApartmentRequest $request)
     {
         $id = Auth::id();
-        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
-        $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
+        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
         $request->validated();
         $data = $request->all();
 
@@ -110,8 +110,9 @@ class ApartmentController extends Controller
         if (Auth::user()->id != $apartment->user_id)
             abort(404);
 
-        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
-        $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
+        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
+        $apartment->messages->orderByDesc('sent');
         $address = [];
         $address_path = "https://api.tomtom.com/search/2/reverseGeocode/{$apartment->latitude},{$apartment->longitude}.json?key={$apiKey}";
         $address_json = file_get_contents($address_path);
@@ -134,8 +135,8 @@ class ApartmentController extends Controller
         if (Auth::user()->id != $apartment->user_id)
             abort(404);
         $services = Service::all();
-        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
-        $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
+        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
         $addresses = [];
 
         $address_path = "https://api.tomtom.com/search/2/reverseGeocode/{$apartment->latitude},{$apartment->longitude}.json?key={$apiKey}";
@@ -158,8 +159,8 @@ class ApartmentController extends Controller
     public function update(ApartmentRequest $request, Apartment $apartment)
     {
         $id = Auth::id();
-        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
-        $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
+        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
         $request->validated();
         $data = $request->all();
 
