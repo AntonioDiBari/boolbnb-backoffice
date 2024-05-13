@@ -12,9 +12,9 @@ class ApartmentController extends Controller
     // *****Funzione che ci ritorna indietro solo gli appartamenti che hanno almeno una sponsor*****
     public function indexSponsor()
     {
-        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
-        $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
-        
+        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
+
 
         $apartments = Apartment::where('visible', true)->whereHas('sponsors')->with(['services:id,name,logo', 'sponsors:id,name,duration,price'])->paginate(12);
 
@@ -67,8 +67,8 @@ class ApartmentController extends Controller
         }
 
         // *****Filtro search-bar*****
-        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
-        $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
+        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
 
         if ($request->has('address') && $request['address'] != "") {
 
@@ -143,8 +143,8 @@ class ApartmentController extends Controller
             $apartment->img = "https://placehold.co/600x400";
         }
         ;
-        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
-        $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
+        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
 
         $address = [];
         // *****Push di address in apartment*****

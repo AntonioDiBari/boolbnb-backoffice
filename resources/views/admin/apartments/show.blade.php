@@ -63,9 +63,9 @@
                         </div>
                         <div class="mt-auto mb-2 d-flex justify-content-between">
                             <div class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#message-{{ $apartment->id }}-apartment">
-                                     Messaggi
-                                </div>
+                                data-bs-target="#message-{{ $apartment->id }}-apartment">
+                                Messaggi
+                            </div>
                             <div>
                                 <a href="{{ route('admin.apartments.edit', $apartment) }}">
                                     <div class="btn btn-success"> <i class="fa-solid fa-pencil"></i> Modifica</div>
@@ -116,25 +116,25 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="message-{{ $apartment }}-apartment">
+                    <h1 class="modal-title fs-5 fw-bold" id="message-{{ $apartment }}-apartment">
                         Messaggi per {{ $apartment->title_desc }} </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <table class="table">
                         <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th scope="col">Email</th>
-                                <th scope="col">Body</th>
+                                <th scope="col">Content</th>
                                 <th scope="col">Sent</th>
                                 <th scope="col"></th>
-            
+
                             </tr>
                         </thead>
-                        <tbody>
-                            @forelse ($apartment->messages as $message)
+                        <tbody class="text-center">
+                            @forelse ($messages as $message)
                                 <tr>
-            
+
                                     <td>{{ $message->email }}</td>
                                     <td>{{ $message->getAbstract(10) }}</td>
                                     <td>{{ $message->sent }}</td>
@@ -143,7 +143,7 @@
                                             <i class="fa-solid fa-circle-info text-primary"></i>
                                         </a>
                                     </td>
-            
+
                                 </tr>
                             @empty
                                 <tr>
@@ -154,7 +154,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
 
                     {{-- <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
                         @csrf
