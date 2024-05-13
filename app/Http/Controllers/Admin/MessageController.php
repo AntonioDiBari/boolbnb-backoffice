@@ -50,14 +50,17 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
-        $messages = Message::orderByDesc('sent')->get();
+        // $messages = Message::orderByDesc('sent')->get();
+        // $messages_array = $messages->toArray();
+        // $email = $message->email;
+        // $apartment_id = $message->apartment_id;
+        // $messages_filter = array_filter($messages_array, function ($mes) use ($email, $apartment_id) {
+        //     return $mes['email'] == $email && $mes['apartment_id'] == $apartment_id;
+        // });
+        $messages = Message::where('email', $message->email)->where('apartment_id', $message->apartment_id)->orderByDesc('sent')->get();
         $messages_array = $messages->toArray();
-        $email = $message->email;
-        $apartment_id = $message->apartment_id;
-        $messages_filter = array_filter($messages_array, function ($mes) use ($email, $apartment_id) {
-            return $mes['email'] == $email && $mes['apartment_id'] == $apartment_id;
-        });
-        return view('admin.messages.show', compact('messages_filter'));
+
+        return view('admin.messages.show', compact('messages_array'));
     }
 
     /**

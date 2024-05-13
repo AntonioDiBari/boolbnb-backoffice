@@ -132,8 +132,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            @dump($apartment->messages)
-                            @forelse ($apartment->messages as $message)
+                            @forelse ($messages as $message)
                                 <tr>
 
                                     <td>{{ $message->email }}</td>

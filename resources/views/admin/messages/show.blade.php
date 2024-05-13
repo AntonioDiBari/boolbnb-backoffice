@@ -6,9 +6,9 @@
             <div class="d-flex flex-column justify-content-between pb-5">
                 <div class="mb-5">
 
-                    <strong>From: </strong> {{ reset($messages_filter)['email'] }} <br />
+                    <strong>From: </strong> {{ reset($messages_array)['email'] }} <br />
                 </div>
-                @foreach ($messages_filter as $message)
+                @foreach ($messages_array as $message)
                     <div class="d-flex justify-content-end mb-2">
 
                         <span class="fw-bold ">date: </span><span class="fw-light ">{{ $message['sent'] }}</span> <br />

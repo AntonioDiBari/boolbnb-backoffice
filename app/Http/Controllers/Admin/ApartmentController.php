@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\ApartmentRequest;
 use App\Models\Apartment;
 use App\Http\Controllers\Controller;
-
+use App\Models\Message;
 use App\Models\Service;
 use App\Models\Sponsor;
 use Illuminate\Support\Facades\Auth;
@@ -112,7 +112,7 @@ class ApartmentController extends Controller
 
         $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
         // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
-        $apartment->messages->orderByDesc('sent');
+        $messages = Message::where('apartment_id', $apartment->id)->orderByDesc('sent')->get();
         $address = [];
         $address_path = "https://api.tomtom.com/search/2/reverseGeocode/{$apartment->latitude},{$apartment->longitude}.json?key={$apiKey}";
         $address_json = file_get_contents($address_path);
@@ -120,7 +120,7 @@ class ApartmentController extends Controller
         array_push($address, $address_obj->addresses[0]->address->freeformAddress);
         $sponsor = $apartment->sponsors->toArray();
 
-        return view('admin.apartments.show', compact('apartment', 'address', 'sponsor'));
+        return view('admin.apartments.show', compact('apartment', 'address', 'sponsor', 'messages'));
     }
 
 
