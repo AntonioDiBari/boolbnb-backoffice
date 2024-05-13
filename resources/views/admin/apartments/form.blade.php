@@ -23,10 +23,10 @@
                 @method('PATCH')
             @endif
 
-            <div class="row">
+            <div class="row py-5">
                 <div class="col-10">
-                    <div class="row">
-                        <div class="col-8">
+                    <div class="row pb-5">
+                        <div class="col-10 ">
                             <label for="title_desc" class="form-label">Nome Appartamento</label>
                             <input type="text" class="form-control @error('title_desc') is-invalid @enderror"
                                 id="title_desc" name="title_desc"
@@ -36,19 +36,18 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-8 position-relative">
-                            <label for="address" class="form-label">Indirizzo</label>
+                    <div class="row pb-5">
+                        <div class="col-10 position-relative ">
+                            <label for="address" class="form-label m-0">Indirizzo</label>
                             <div id="searchbox">
-
                             </div>
                             @error('address')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-2">
+                    <div class="row pb-5 ">
+                        <div class="col-5">
                             <label for="n_rooms" class="form-label">N° Stanze</label>
                             <input type="number" class="form-control @error('n_rooms') is-invalid @enderror" id="n_rooms"
                                 name="n_rooms" value="{{ old('n_rooms') ?? $apartment->n_rooms }}" required />
@@ -56,7 +55,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-2">
+                        <div class="col-5">
                             <label for="n_bathrooms" class="form-label">N° Bagni</label>
                             <input type="number" class="form-control @error('n_bathrooms') is-invalid @enderror"
                                 id="n_bathrooms" name="n_bathrooms"
@@ -65,7 +64,9 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-2">
+                    </div>
+                    <div class="row pb-5 ">
+                        <div class="col-5">
                             <label for="n_beds" class="form-label">N° Letti</label>
                             <input type="number" class="form-control @error('n_beds') is-invalid @enderror" id="n_beds"
                                 name="n_beds" value="{{ old('n_beds') ?? $apartment->n_beds }}" required />
@@ -73,7 +74,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-2">
+                        <div class="col-5">
                             <label for="square_mts" class="form-label">Metri quadri</label>
                             <input type="number" class="form-control @error('square_mts') is-invalid @enderror"
                                 id="square_mts" name="square_mts" value="{{ old('square_mts') ?? $apartment->square_mts }}"
@@ -84,8 +85,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-7">
-                            <section class="mb-4 d-flex gap-3">
+                        <div class="col-11">
+                            <section class="mb-4 d-flex gap-5">
                                 <div>
                                     <label for="img" class="form-label">Immagine rappresentativa
                                         dell'appartamento (opzionale)</label>
@@ -96,16 +97,17 @@
                                     @enderror
                                 </div>
                                 @if (isset($apartment->img))
-                                    <div>
-                                        <label clas="form-label">Precedente Immagine inserita</label><br>
-                                        <img @if (str_starts_with($apartment->img, 'img')) src="{{ asset($apartment->img) }}" 
+                                    <div class="">
+                                        <label clas="form-label ">Precedente Immagine inserita</label><br>
+                                        <img class="shadow"
+                                            @if (str_starts_with($apartment->img, 'img')) src="{{ asset($apartment->img) }}" 
                                         @elseif (str_starts_with($apartment->img, 'uploads')) src="{{ asset('storage/' . $apartment->img) }}" @endif
                                             alt="">
                                     </div>
                                 @endif
                             </section>
                         </div>
-                        <div class="col-3">
+                        <div class="col-3 pb-3">
                             <input class="form-check-input" type="checkbox" value="1" name="visible" id="visible"
                                 {{ $apartment->visible ? 'checked' : '' }}>
                             <label class="form-check-label" for="visible">
@@ -114,13 +116,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-2 p-3 services-collum rounded shadow">
                     @foreach ($services as $service)
-                        <input type="checkbox" id="services-{{ $service->id }}" name="services[]"
-                            value="{{ $service->id }}" class="form-check-input @error('services') is-invalid @enderror"
-                            {{ in_array($service->id, old('services', $apartment->services->pluck('id')->toArray())) ? 'checked' : '' }}>
-                        <label for="services-{{ $service->id }}"
-                            class="form-check-label">{{ $service->name }}</label><br>
+                        <div class="mb-5">
+                            <input type="checkbox" id="services-{{ $service->id }}" name="services[]"
+                                value="{{ $service->id }}"
+                                class="form-check-input @error('services') is-invalid @enderror"
+                                {{ in_array($service->id, old('services', $apartment->services->pluck('id')->toArray())) ? 'checked' : '' }}>
+                            <label for="services-{{ $service->id }}"
+                                class="form-check-label">{{ $service->name }}</label><br>
+
+                        </div>
                     @endforeach
                     @error('services')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -128,7 +134,7 @@
                 </div>
                 <div class="col-3">
                     <button type="submit"
-                        class="btn btn-secondary">{{ empty($apartment->id) ? 'Aggiungi' : 'Modifica' }}</button>
+                        class="btn btn-success">{{ empty($apartment->id) ? 'Aggiungi' : 'Modifica' }}</button>
                 </div>
             </div>
         </form>
