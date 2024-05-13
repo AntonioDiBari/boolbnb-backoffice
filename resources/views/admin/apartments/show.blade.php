@@ -132,6 +132,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
+                            @dump($apartment->messages)
                             @forelse ($apartment->messages as $message)
                                 <tr>
 

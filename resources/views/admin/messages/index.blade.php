@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('content')
     <div class="container my-3">
@@ -36,4 +36,4 @@
 
         {{ $pastas->links('pagination::bootstrap-5') }}
     </div>
-@endsection
+@endsection --}}

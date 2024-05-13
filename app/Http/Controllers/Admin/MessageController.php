@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
-
 use App\Models\Message;
 use Illuminate\Http\Request;
 
@@ -13,11 +12,12 @@ class MessageController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * 
+     *
      */
     public function index()
     {
-        $messages = Message::paginate(10);
+        $messages = Message::all()->orderBy('sent', 'desc')->get();
+
         return view('admin.messages.index', compact('messages'));
     }
 
@@ -46,15 +46,15 @@ class MessageController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Message  $message
-     * 
+     *
      */
     public function show(Message $message)
     {
-       $messages = Message::all()->toArray();
-       $email = $message->email;
-       $apartment_id = $message->apartment_id;
-        $messages_filter = array_filter($messages, function ($mes) use ($email, $apartment_id) {
-
+        $messages = Message::orderByDesc('sent')->get();
+        $messages_array = $messages->toArray();
+        $email = $message->email;
+        $apartment_id = $message->apartment_id;
+        $messages_filter = array_filter($messages_array, function ($mes) use ($email, $apartment_id) {
             return $mes['email'] == $email && $mes['apartment_id'] == $apartment_id;
         });
         return view('admin.messages.show', compact('messages_filter'));
