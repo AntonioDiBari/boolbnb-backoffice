@@ -16,7 +16,7 @@
 
             </div>
 
-            <div class="bg-body-secondary p-3 bg-white rounded ">
+            <div class="bg-body-secondary p-3  rounded shadow">
                 {{ $message['body'] }} <br />
 
             </div>
