@@ -24,9 +24,9 @@
                                 @if ($sponsor_first['pivot']['expiry'] > date("Y-m-d H:i:s") && $stop == false)
                                 <div @class([
                                     'sponsor-icon',
-                                    'standard' => $sponsor_first['id'] == 1,
-                                    'gold' => $sponsor_first['id'] == 2,
-                                    'platinum' => $sponsor_first['id'] == 3,
+                                    'standard-text' => $sponsor_first['id'] == 1,
+                                    'gold-text' => $sponsor_first['id'] == 2,
+                                    'platinum-text' => $sponsor_first['id'] == 3,
                                 ])>
                                     <i class="fa-solid fa-crown fs-2"></i>
                                 </div>
@@ -39,7 +39,12 @@
                 <div class="col-6">
                     <div class="desc-box d-flex flex-column">
                         <div>
-                            <p><strong class="text-color">Indirizzo: </strong>{{ $address[0] }}</p>
+                            <div class="d-flex justify-content-between">
+                                <p><strong class="text-color">Indirizzo: </strong>{{ $address[0] }}</p>
+                                <a href="{{ route('admin.apartments.sponsors', $apartment) }}">
+                                    <div class="btn btn-warning fw-bold text-light">Sponsorizza</div>
+                                </a>
+                            </div>
                             <ul>
                                 <p class="text-color m-0"><strong>Servizi:</strong></p>
                                 @foreach ($apartment->services as $service)

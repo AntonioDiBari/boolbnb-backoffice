@@ -41,9 +41,9 @@
                                     @if ($sponsor['pivot']['expiry'] > date("Y-m-d H:i:s") && $stop == false)
                                         <div @class([
                                             'sponsor-icon',
-                                            'standard' => $sponsor['id'] == 1,
-                                            'gold' => $sponsor['id'] == 2,
-                                            'platinum' => $sponsor['id'] == 3,
+                                            'standard-text' => $sponsor['id'] == 1,
+                                            'gold-text' => $sponsor['id'] == 2,
+                                            'platinum-text' => $sponsor['id'] == 3,
                                             ])><i class="fa-solid fa-crown"></i>
                                         </div>
                                         @php $stop = true @endphp

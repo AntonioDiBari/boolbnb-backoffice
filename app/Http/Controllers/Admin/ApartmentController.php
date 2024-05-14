@@ -215,4 +215,9 @@ class ApartmentController extends Controller
             ->with("message", "Appartamento eliminato con successo")
             ->with("type", "alert-info");
     }
+
+    public function sponsors(Apartment $apartment) {
+        $sponsors = $apartment->sponsors;
+        return view('admin.apartments.sponsors', compact('sponsors'));
+    }
 }
