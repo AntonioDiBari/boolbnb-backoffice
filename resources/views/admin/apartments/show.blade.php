@@ -12,14 +12,27 @@
                             @if (str_starts_with($apartment->img, 'img')) src="{{ asset($apartment->img) }}" @elseif (str_starts_with($apartment->img, 'uploads')) src="{{ asset('storage/' . $apartment->img) }}"  @else src="https://placehold.co/600x400" @endif
                             alt="">
                         @if (!empty($sponsor))
-                            <div @class([
-                                'sponsor-icon',
-                                'standard' => $sponsor[0]['id'] == 1,
-                                'gold' => $sponsor[0]['id'] == 2,
-                                'platinum' => $sponsor[0]['id'] == 3,
-                            ])>
-                                <i class="fa-solid fa-crown fs-2"></i>
-                            </div>
+                            @php 
+                                $created_dates = [];
+                                foreach ($sponsor as $sponsor_first) {
+                                    array_push($created_dates, $sponsor_first['pivot']['created']);
+                                }
+                                array_multisort($created_dates, SORT_ASC, $sponsor);
+                                $stop = false;
+                            @endphp
+                            @foreach ($sponsor as $sponsor_first)
+                                @if ($sponsor_first['pivot']['expiry'] > date("Y-m-d H:i:s") && $stop == false)
+                                <div @class([
+                                    'sponsor-icon',
+                                    'standard' => $sponsor_first['id'] == 1,
+                                    'gold' => $sponsor_first['id'] == 2,
+                                    'platinum' => $sponsor_first['id'] == 3,
+                                ])>
+                                    <i class="fa-solid fa-crown fs-2"></i>
+                                </div>
+                                @php $stop = true; @endphp
+                                @endif
+                            @endforeach
                         @endif
                     </div>
                 </div>
