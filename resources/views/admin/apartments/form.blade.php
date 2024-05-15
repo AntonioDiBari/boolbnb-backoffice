@@ -13,6 +13,7 @@
                 </ul>
             </div>
         @endif
+        {{-- @dump($addresses) --}}
         <h1>{{ empty($apartment->id) ? 'Aggiungi Appartamento' : 'Modifica Appartamento' }}</h1>
         <form
             action="{{ empty($apartment->id) ? route('admin.apartments.store') : route('admin.apartments.update', $apartment) }}"
@@ -123,6 +124,7 @@
                                 value="{{ $service->id }}"
                                 class="form-check-input @error('services') is-invalid @enderror"
                                 {{ in_array($service->id, old('services', $apartment->services->pluck('id')->toArray())) ? 'checked' : '' }}>
+                            <i class="fa-solid fa-{{ $service->logo }} mx-2"></i>
                             <label for="services-{{ $service->id }}"
                                 class="form-check-label">{{ $service->name }}</label><br>
 
@@ -170,6 +172,8 @@
         const inputBox = document.querySelector('.tt-search-box-input');
         inputBox.setAttribute('name', 'address');
         inputBox.setAttribute('id', 'address');
+        // inputBox.setAttribute('required');
+        // inputBox.setAttribute('value', 'ciao');
     </script>
 
     {{-- VALIDAZIONI CLIENT --}}

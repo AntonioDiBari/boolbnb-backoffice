@@ -13,11 +13,11 @@
                     </li>
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                            <a class="nav-link" href="{{ route('login') }}">Accedi</a>
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">Register</a>
+                                <a class="nav-link" href="{{ route('register') }}">Registrati</a>
                             </li>
                         @endif
                     @else
@@ -28,9 +28,9 @@
                             </a>
                             <div aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="{{ route('admin.dashboard') }}"> Dashboard</a>
-                                <a class="dropdown-item" href="{{ url('profile') }}"> Profile</a>
+                                <a class="dropdown-item" href="{{ url('profile') }}"> Profilo</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" id="logout-link">
-                                    Logout
+                                    Esci
                                 </a>
                                 <form action="{{ route('logout') }}" class="d-none" id="logout-form" method="POST">
                                     @csrf
