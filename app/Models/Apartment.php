@@ -42,7 +42,7 @@ class Apartment extends Model
     /* un appartamento ha uno o più sponsorizzazioni */
     public function sponsors()
     {
-        return $this->belongsToMany(Sponsor::class);
+        return $this->belongsToMany(Sponsor::class)->withPivot('expiry', 'created');
     }
 
         /**

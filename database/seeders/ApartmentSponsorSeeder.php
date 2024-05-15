@@ -20,7 +20,7 @@ class ApartmentSponsorSeeder extends Seeder
     public function run(Faker $faker)
     {
         $apartments = Apartment::where('id', '>', 10)->get();
-        $sponsors = Sponsor::all()->pluck('id')->toArray();
+        // $sponsors = Sponsor::all()->pluck('id')->toArray();
 
         foreach ($apartments as $apartment) {
             $sponsorNumber = rand(1, 3);

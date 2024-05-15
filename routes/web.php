@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SliderController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,10 +33,12 @@ Route::middleware('auth')
 
     Route::resource('apartments', ApartmentController::class);
     Route::resource('messages', MessageController::class);
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('apartments/sponsors/{apartment}', [ApartmentController::class, 'sponsors'])->name('apartments.sponsors');
+    Route::get('apartments/sponsors/payment/{apartment}', [ApartmentController::class, 'sponsorSync'])->name('apartments.sponsorSync');
 
-  
-       
-        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-    });
+
+
+  });
 
 require __DIR__ . '/auth.php';

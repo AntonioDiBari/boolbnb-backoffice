@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Models\Service;
 use App\Models\Sponsor;
+use DateInterval;
+use DateTime;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,7 +26,8 @@ class ApartmentController extends Controller
         $id = Auth::id();
         $apartments = Apartment::where('user_id', $id)->paginate(10);
 
-        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        $apiKey = env('TOMTOM_API_KEY');
+        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
         // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
         $addresses = [];
         $sponsors = [];
@@ -60,7 +64,8 @@ class ApartmentController extends Controller
     public function store(ApartmentRequest $request)
     {
         $id = Auth::id();
-        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        $apiKey = env('TOMTOM_API_KEY');
+        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
         // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
         $request->validated();
         $data = $request->all();
@@ -110,7 +115,9 @@ class ApartmentController extends Controller
         if (Auth::user()->id != $apartment->user_id)
             abort(404);
 
-        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        $apiKey = env('TOMTOM_API_KEY');
+
+        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
         // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
         $messages = Message::where('apartment_id', $apartment->id)->orderByDesc('sent')->get();
         $address = [];
@@ -135,7 +142,10 @@ class ApartmentController extends Controller
         if (Auth::user()->id != $apartment->user_id)
             abort(404);
         $services = Service::all();
-        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+
+        $apiKey = env('TOMTOM_API_KEY');
+
+        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
         // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
         $addresses = [];
 
@@ -159,7 +169,10 @@ class ApartmentController extends Controller
     public function update(ApartmentRequest $request, Apartment $apartment)
     {
         $id = Auth::id();
-        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+
+        $apiKey = env('TOMTOM_API_KEY');
+
+        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
         // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
         $request->validated();
         $data = $request->all();
@@ -214,5 +227,39 @@ class ApartmentController extends Controller
         return redirect()->route('admin.apartments.index')
             ->with("message", "Appartamento eliminato con successo")
             ->with("type", "alert-info");
+    }
+
+    public function sponsors(Apartment $apartment)
+    {
+        $sponsors = $apartment->sponsors;
+        $allSponsors = Sponsor::all();
+        return view('admin.apartments.sponsors', compact('sponsors', 'allSponsors', 'apartment'));
+    }
+
+    public function sponsorSync(Request $request, Apartment $apartment)
+    {
+        $data = $request->all();
+        date_default_timezone_set('Europe/Rome');
+        if (count($apartment->sponsors) > 0 && $apartment->sponsors[0]['pivot']['expiry'] > date('Y-m-d H:i:s')) {
+            $expiryPrev = $apartment->sponsors[0]['pivot']['expiry'];
+            $data['created'] = $expiryPrev;
+        } else {
+            $data['created'] = date('Y-m-d H:i:s');
+        }
+
+        $date = new DateTime($data['created']);
+
+        if ($data['sponsor'] == 1) {
+            $data['expiry'] = $date->add(new DateInterval('PT24H'));
+        } elseif ($data['sponsor'] == 2) {
+            $data['expiry'] = $date->add(new DateInterval('PT72H'));
+        } elseif ($data['sponsor'] == 3) {
+            $data['expiry'] = $date->add(new DateInterval('PT144H'));
+        }
+        $data['expiry'] = $data['expiry']->format('Y-m-d H:i:s');
+        // dd($data);
+        $apartment->sponsors()->attach($data['sponsor'], ['created' => $data['created'], 'expiry' => $data['expiry']]);
+
+        return redirect()->route('admin.apartments.show', $apartment);
     }
 }
