@@ -3,6 +3,7 @@
 
 @section('content')
     <div class="container my-5">
+        <h3 class="my-3">Sponsorizza {{ $apartment->title_desc }}</h3>
         <div class="bg-light p-2 rounded mb-3">
             <form action="{{ route('admin.apartments.sponsorSync', $apartment) }}">
                 <h5>Piani disponibili:</h5>
