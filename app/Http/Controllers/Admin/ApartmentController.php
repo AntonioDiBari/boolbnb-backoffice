@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Models\Service;
 use App\Models\Sponsor;
+use DateInterval;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -237,7 +239,26 @@ class ApartmentController extends Controller
     public function sponsorSync(Request $request, Apartment $apartment)
     {
         $data = $request->all();
-        $apartment->sponsors()->sync($data['sponsor']);
+        date_default_timezone_set('Europe/Rome');
+        if (count($apartment->sponsors) > 0 && $apartment->sponsors[0]['pivot']['expiry'] > date('Y-m-d H:i:s')) {
+            $expiryPrev = $apartment->sponsors[0]['pivot']['expiry'];
+            $data['created'] = $expiryPrev;
+        } else {
+            $data['created'] = date('Y-m-d H:i:s');
+        }
+
+        $date = new DateTime($data['created']);
+
+        if ($data['sponsor'] == 1) {
+            $data['expiry'] = $date->add(new DateInterval('PT24H'));
+        } elseif ($data['sponsor'] == 2) {
+            $data['expiry'] = $date->add(new DateInterval('PT72H'));
+        } elseif ($data['sponsor'] == 3) {
+            $data['expiry'] = $date->add(new DateInterval('PT144H'));
+        }
+        $data['expiry'] = $data['expiry']->format('Y-m-d H:i:s');
+        // dd($data);
+        $apartment->sponsors()->attach($data['sponsor'], ['created' => $data['created'], 'expiry' => $data['expiry']]);
 
         return redirect()->route('admin.apartments.show', $apartment);
     }
