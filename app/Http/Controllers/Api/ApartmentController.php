@@ -12,7 +12,9 @@ class ApartmentController extends Controller
     // *****Funzione che ci ritorna indietro solo gli appartamenti che hanno almeno una sponsor*****
     public function indexSponsor()
     {
-        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        $apiKey = env('TOMTOM_API_KEY');
+
+        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
         // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
 
 
@@ -67,7 +69,9 @@ class ApartmentController extends Controller
         }
 
         // *****Filtro search-bar*****
-        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        $apiKey = env('TOMTOM_API_KEY');
+
+        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
         // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
 
         if ($request->has('address') && $request['address'] != "") {
@@ -143,7 +147,9 @@ class ApartmentController extends Controller
             $apartment->img = "https://placehold.co/600x400";
         }
         ;
-        $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
+        $apiKey = env('TOMTOM_API_KEY');
+
+        // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
         // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
 
         $address = [];
