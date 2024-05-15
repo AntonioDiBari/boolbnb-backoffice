@@ -25,7 +25,7 @@
                             <div class="row">
                                 <div class="col-5">
                                     <div class="rounded-2 overflow-hidden position-relative">
-                                        <img class="img-fluid w-100"
+                                        <img class="img-fluid w-100 img-fixed"
                                             @if (str_starts_with($apartment->img, 'img')) src="{{ asset($apartment->img) }}" @elseif (str_starts_with($apartment->img, 'uploads')) src="{{ asset('storage/' . $apartment->img) }}"  @else src="https://placehold.co/600x400" @endif
                                             alt="">
                                         @if (!empty($sponsors[$key]))

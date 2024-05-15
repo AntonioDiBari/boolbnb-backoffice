@@ -37,7 +37,7 @@
                         carouselItem.classList.add('active');
                     }
                     const image = document.createElement('img');
-                    image.classList.add('img-fluid', 'figure-img', 'w-100', 'img');
+                    image.classList.add('img-fluid', 'figure-img', 'w-100', 'img-carousel');
                     image.src = imageUrl;
                     carouselItem.appendChild(image);
                     sliderInner.appendChild(carouselItem);

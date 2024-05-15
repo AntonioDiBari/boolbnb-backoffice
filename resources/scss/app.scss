@@ -3,6 +3,7 @@
 .text-color {
     color: rgb(103, 103, 255);
 }
+
 .btn-primary {
     background-color: rgb(103, 103, 255);
 }
@@ -23,17 +24,21 @@
             top: 5px;
             right: 5px;
         }
+
         .standard {
             color: #cd7f32;
         }
+
         .gold {
             color: gold;
         }
+
         .platinum {
             color: #e5e4e2;
         }
 
         background-color: #7cc6f2;
+
         .container-home-page {
             display: flex;
             flex-direction: column;
@@ -53,6 +58,7 @@
                     height: 500px;
 
                     object-fit: contain;
+
                     .img {
                         width: 100%;
                         height: auto;
@@ -81,20 +87,42 @@
             opacity: 0.8;
             transition: 0.5s;
         }
+
         .desc-box {
             height: 100%;
         }
     }
 }
 
-.modal-content{
+.modal-content {
     min-width: 600px;
 }
 
-.message-container{
+.message-container {
     width: 70%;
 }
 
-.services-collum{
-    background-color:#8bcdf3;
+.services-collum {
+    background-color: #8bcdf3;
+}
+
+.img-fixed {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.img-fixed-show {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.img-carousel {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    object-position: center;
 }
