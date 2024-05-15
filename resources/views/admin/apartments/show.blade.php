@@ -8,7 +8,7 @@
             <div class="row  d-flex">
                 <div class="col-6">
                     <div class="img-box rounded-2 overflow-hidden position-relative">
-                        <img class="img-fluid w-100"
+                        <img class="img-fluid w-100 img-fixed-show"
                             @if (str_starts_with($apartment->img, 'img')) src="{{ asset($apartment->img) }}" @elseif (str_starts_with($apartment->img, 'uploads')) src="{{ asset('storage/' . $apartment->img) }}"  @else src="https://placehold.co/600x400" @endif
                             alt="">
                         @if (!empty($sponsor))
