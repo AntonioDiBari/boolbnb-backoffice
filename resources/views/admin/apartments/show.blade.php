@@ -12,7 +12,7 @@
                             @if (str_starts_with($apartment->img, 'img')) src="{{ asset($apartment->img) }}" @elseif (str_starts_with($apartment->img, 'uploads')) src="{{ asset('storage/' . $apartment->img) }}"  @else src="https://placehold.co/600x400" @endif
                             alt="">
                         @if (!empty($sponsor))
-                            @php 
+                            @php
                                 $created_dates = [];
                                 foreach ($sponsor as $sponsor_first) {
                                     array_push($created_dates, $sponsor_first['pivot']['created']);
@@ -21,16 +21,16 @@
                                 $stop = false;
                             @endphp
                             @foreach ($sponsor as $sponsor_first)
-                                @if ($sponsor_first['pivot']['expiry'] > date("Y-m-d H:i:s") && $stop == false)
-                                <div @class([
-                                    'sponsor-icon',
-                                    'standard-text' => $sponsor_first['id'] == 1,
-                                    'gold-text' => $sponsor_first['id'] == 2,
-                                    'platinum-text' => $sponsor_first['id'] == 3,
-                                ])>
-                                    <i class="fa-solid fa-crown fs-2"></i>
-                                </div>
-                                @php $stop = true; @endphp
+                                @if ($sponsor_first['pivot']['expiry'] > date('Y-m-d H:i:s') && $stop == false)
+                                    <div @class([
+                                        'sponsor-icon',
+                                        'standard-text' => $sponsor_first['id'] == 1,
+                                        'gold-text' => $sponsor_first['id'] == 2,
+                                        'platinum-text' => $sponsor_first['id'] == 3,
+                                    ])>
+                                        <i class="fa-solid fa-crown fs-2"></i>
+                                    </div>
+                                    @php $stop = true; @endphp
                                 @endif
                             @endforeach
                         @endif
@@ -96,6 +96,9 @@
                         </div>
                     </div>
                 </div>
+                <a class="btn btn-link" href="{{ route('admin.apartments.index') }}"><i class="fa-solid fa-left-long"></i>
+                    Torna ai
+                    tuoi appartamenti</a>
             </div>
         </div>
     </div>
@@ -131,7 +134,7 @@
 @section('modal-msg')
     <div class="modal fade modal-dialog-scrollable" id="message-{{ $apartment->id }}-apartment" tabindex="-1"
         aria-labelledby="message-{{ $apartment->id }}-apartment" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="max-width:1000px">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5 fw-bold" id="message-{{ $apartment }}-apartment">
@@ -139,46 +142,28 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <table class="table">
-                        <thead>
-                            <tr class="text-center">
-                                <th scope="col">Email</th>
-                                <th scope="col">Content</th>
-                                <th scope="col">Sent</th>
-                                <th scope="col"></th>
-
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-                            @forelse ($messages as $message)
-                                <tr>
-
-                                    <td>{{ $message->email }}</td>
-                                    <td>{{ $message->getAbstract(10) }}</td>
-                                    <td>{{ $message->sent }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.messages.show', $message) }}">
-                                            <i class="fa-solid fa-circle-info text-primary"></i>
-                                        </a>
-                                    </td>
-
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td>Nessun Messaggio</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-
-                    {{-- <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger">Delete</button>
-                    </form> --}}
+                    <div class="row">
+                        <div class="col-6">Corpo</div>
+                        <div class="col-3">Email</div>
+                        <div class="col">Ricevuto il</div>
+                        <div class="col-1"></div>
+                    </div>
+                    @forelse ($messages as $message)
+                        <div class="row border align-items-center email-line">
+                            <div class="col-6">{{ $message->getAbstract(50) }}</div>
+                            <div class="col-3">{{ $message->email }}</div>
+                            <div class="col">{{ $message->getDate() }}</div>
+                            <div class="col-1">
+                                <a href="{{ route('admin.messages.show', $message) }}">
+                                    <i class="fa-solid fa-circle-info text-primary"></i>
+                                </a>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="row border">
+                            <div class="col">Nessun Messaggio Ricevuto</div>
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </div>

@@ -25,7 +25,14 @@
             top: 5px;
             right: 5px;
         }
-
+        a {
+            text-decoration: none;
+        }
+        ul {
+            li {
+                list-style: none;
+            }
+        }
         .standard-text {
             color: rgb(164, 102, 40);
         }
@@ -131,7 +138,12 @@
         }
     }
 }
-
+.email-line {
+    height: 40px;
+    &:hover {
+        background-color: beige;
+    }
+}
 .modal-content {
     min-width: 600px;
 }
@@ -143,7 +155,6 @@
 .services-collum {
     background-color: #8bcdf3;
 }
-
 
 .img-fixed {
     width: 100%;

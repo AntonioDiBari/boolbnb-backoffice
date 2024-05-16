@@ -6,16 +6,16 @@
             <div class="d-flex flex-column justify-content-between pb-5">
                 <div class="mb-5">
 
-                    <strong>From: </strong> {{ reset($messages_array)['email'] }} <br />
+                    <strong class="me-2">Da:</strong>{{ reset($messages_array)['email'] }}
                 </div>
                 @foreach ($messages_array as $message)
                     <div class="d-flex justify-content-end mb-2">
 
-                        <span class="fw-bold ">date: </span><span class="fw-light ">{{ $message['sent'] }}</span> <br />
+                        <span class="fw-bold me-2">Data: </span><span class="fw-light"> {{ $message['sent'] }}</span>
                     </div>
 
                     <div class="bg-body-secondary p-3  rounded shadow mb-5">
-                        {{ $message['body'] }} <br />
+                        {{ $message['body'] }}
 
                     </div>
                 @endforeach
