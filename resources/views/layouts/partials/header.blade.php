@@ -8,7 +8,7 @@
           </a>
           <div class="title align-self-center">BoolBnB</div>
         </div>
-        <div class="login-box gap-2 d-flex align-items-center">
+        <div class="gap-2 d-flex align-items-center">
             <ul class="navbar-nav d-flex ms-auto mb-2 mb-lg-0">
                 @guest
                 <li>

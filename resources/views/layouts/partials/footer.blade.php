@@ -50,22 +50,19 @@
             <ul>
               <li>
                 <a href="mailto:info@boolbnb.com">
-                  <font-awesome-icon icon="fa-solid fa-envelope" class="pe-1" />
+                  <i class="fa-solid fa-envelope pe-1"></i>
                   <span>info@boolbnb.com</span>
                 </a>
               </li>
               <li>
                 <a href="tel:+123456789">
-                  <font-awesome-icon icon="fa-solid fa-phone" class="pe-1" />
+                  <i class="fa-solid fa-phone pe-1"></i>
                   <span>+123456789</span>
                 </a>
               </li>
               <li>
                 <a href="">
-                  <font-awesome-icon
-                    icon="fa-solid fa-location-dot"
-                    class="pe-1"
-                  />
+                  <i class="fa-solid fa-location-dot pe-1"></i>
                   <span>Via Roma, 123</span>
                 </a>
               </li>
