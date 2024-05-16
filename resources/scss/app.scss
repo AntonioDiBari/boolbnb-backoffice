@@ -1,5 +1,103 @@
 @import "~bootstrap/scss/bootstrap";
+:root {
+    --main-color: #918ec0;
+    --white: #ffffff;
+    --rose-red: #bc3c60;
+    --gray: #595e70;
+}
 
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+header {
+    height: 120px;
+    background: linear-gradient(to top, var(--main-color), var(--gray));
+    .btn-info {
+        background-color: #600b1f;
+        border: none;
+        color: white;
+        font-weight: bold;
+        &:hover {
+            background-color: #9e374f;
+            color: white;
+        }
+        p {
+            margin: 0;
+        }
+    }
+    .title {
+        font-size: 60px;
+        font-weight: bold;
+        color: #600b1f;
+        opacity: 0.9;
+        text-shadow: 0 0 2px;
+    }
+
+    .logo-box {
+        height: 120px;
+        aspect-ratio: 1;
+
+        img {
+            mix-blend-mode: multiply;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .login-box {
+        font-size: 20px;
+        font-weight: bold;
+        color: #600b1f;
+        cursor: pointer;
+        box-shadow: 0px 0px 3px 0px var(--gray);
+        border-radius: 30px;
+        &:hover .login {
+            box-shadow: 6px -1px 6px -5px var(--gray);
+        }
+        li:hover {
+            opacity: 0.7;
+        }
+        .login {
+            padding: 5px 10px;
+        }
+        .register {
+            padding: 5px 10px;
+        }
+    }
+
+    .user {
+        font-size: 30px;
+        color: #600b1f;
+        padding: 0 10px;
+        a {
+            padding: 0;
+        }
+        cursor: pointer;
+        box-shadow: 0px 0px 3px 0px var(--gray);
+        border-radius: 30px;
+        &:hover {
+            color: #9e374f;
+            opacity: 1;
+        }
+        .dropdown-menu {
+            background-color: aliceblue;
+            border: 1px solid var(--main-color);
+            padding: 0;
+            a {
+                color: var(--main-color);
+                font-weight: bold;
+                padding: 3px 8px;
+                font-size: 20px;
+                &:hover {
+                    background-color: var(--main-color);
+                    color: white;
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+}
 .text-color {
     color: rgb(103, 103, 255);
 }
@@ -14,11 +112,11 @@
     flex-direction: column;
 
     main {
-        min-height: 80vh;
+        // min-height: 80vh;
         width: 100%;
         height: 100%;
         flex-grow: 1;
-        background-color: #7cc6f2;
+        background-color: aliceblue;
 
         .sponsor-icon {
             position: absolute;
@@ -106,30 +204,6 @@
             }
         }
     }
-
-    .header {
-        background-color: #7cc6f2;
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        .primary-col:hover {
-            cursor: pointer;
-            opacity: 0.8;
-            transition: 0.5s;
-        }
-
-        .desc-box {
-            height: 100%;
-        }
-    }
 }
 
 .modal-content {
@@ -143,7 +217,6 @@
 .services-collum {
     background-color: #8bcdf3;
 }
-
 
 .img-fixed {
     width: 100%;
@@ -164,4 +237,36 @@
     height: 600px;
     object-fit: cover;
     object-position: center;
+}
+
+footer {
+    height: 145px;
+    box-shadow: 0px -2px 3px 4px var(--main-color);
+
+    background: linear-gradient(to bottom, var(--main-color), var(--gray));
+
+    ul {
+        padding: 0;
+    }
+
+    .list-unstyled {
+        a:hover {
+            opacity: 0.8;
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+            text-decoration: underline;
+            color: white;
+        }
+    }
+
+    .text-pink {
+        color: var(--rose-red);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
 }
