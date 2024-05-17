@@ -40,11 +40,12 @@
                     <div class="desc-box d-flex flex-column">
                         <div>
                             <div class="d-flex justify-content-between">
-                                <p><strong class="text-color">Indirizzo: </strong>{{ $address[0] }}</p>
+                            <p><strong class="text-color">Scadenza sponsorizzazione: </strong>{{ $sponsor[0]['pivot']['expiry'] }}</p>
                                 <a href="{{ route('admin.apartments.sponsors', $apartment) }}">
                                     <div class="btn btn-warning fw-bold text-light">Sponsorizza</div>
                                 </a>
                             </div>
+                                <p><strong class="text-color">Indirizzo: </strong>{{ $address[0] }}</p>
                             <ul>
                                 <p class="text-color m-0"><strong>Servizi:</strong></p>
                                 @foreach ($apartment->services as $service)
