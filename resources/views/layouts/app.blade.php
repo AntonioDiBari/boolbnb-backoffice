@@ -6,7 +6,9 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <meta content="{{ csrf_token() }}" name="csrf-token">
-    <title>{{ env('APP_NAME', 'Laravel project') }} - @yield('title', 'My page') </title>
+    <link rel="icon" type="image/svg+xml" href="{{ Vite::asset('resources/assets/logo.png') }}" />
+
+    <title>{{ env('APP_NAME', 'BoolBnB') }} - @yield('title') </title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
@@ -24,7 +26,7 @@
         @include('layouts.partials.header')
 
 
-        <main>
+        <main class="py-5">
             @yield('content')
         </main>
 

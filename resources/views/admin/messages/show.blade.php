@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', 'Dettaglio Email')
+
 
 @section('content')
     <div class="container my-5 d-flex justify-content-center position-relative">
