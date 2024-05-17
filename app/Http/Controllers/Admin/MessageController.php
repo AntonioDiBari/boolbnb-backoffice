@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use App\Models\Apartment;
 use App\Models\Message;
 use Illuminate\Http\Request;
 
@@ -48,7 +49,7 @@ class MessageController extends Controller
      * @param  \App\Models\Message  $message
      *
      */
-    public function show(Message $message)
+    public function show(Apartment $apartment, Message $message)
     {
         // $messages = Message::orderByDesc('sent')->get();
         // $messages_array = $messages->toArray();
@@ -60,7 +61,7 @@ class MessageController extends Controller
         $messages = Message::where('email', $message->email)->where('apartment_id', $message->apartment_id)->orderByDesc('sent')->get();
         $messages_array = $messages->toArray();
 
-        return view('admin.messages.show', compact('messages_array'));
+        return view('admin.messages.show', compact('messages_array', 'apartment'));
     }
 
     /**

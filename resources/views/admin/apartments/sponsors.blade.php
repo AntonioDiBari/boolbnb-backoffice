@@ -2,7 +2,10 @@
 @section('title', 'Sponsorizzazioni')
 
 @section('content')
-    <div class="container my-5">
+    <div class="container my-5 position-relative">
+        <div class="navigation position-absolute">
+            <a class="btn btn-link" href="{{ route('admin.apartments.show', $apartment) }}"><i class="fa-solid fa-reply"></i></a>
+        </div>
         <h3 class="my-3">Sponsorizza {{ $apartment->title_desc }}</h3>
         <div class="bg-light p-2 rounded mb-3">
             <form action="{{ route('admin.apartments.sponsorSync', $apartment) }}">

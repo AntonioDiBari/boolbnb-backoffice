@@ -32,7 +32,8 @@ Route::middleware('auth')
   ->group(function () {
 
     Route::resource('apartments', ApartmentController::class);
-    Route::resource('messages', MessageController::class);
+    // Route::resource('messages', MessageController::class);
+    Route::get('messages/{apartment}/{message}', [MessageController::class, 'show'])->name('messages.show');
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('apartments/sponsors/{apartment}', [ApartmentController::class, 'sponsors'])->name('apartments.sponsors');
     Route::get('apartments/sponsors/payment/{apartment}', [ApartmentController::class, 'sponsorSync'])->name('apartments.sponsorSync');
