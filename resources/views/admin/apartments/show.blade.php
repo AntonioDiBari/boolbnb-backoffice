@@ -39,13 +39,20 @@
                 <div class="col-6">
                     <div class="desc-box d-flex flex-column">
                         <div>
-                            <div class="d-flex justify-content-between">
-                                <p><strong class="text-color">Scadenza sponsorizzazione:
-                                    </strong>{{ $sponsor[0]['pivot']['expiry'] }}</p>
+                            <div @class([
+                                'd-flex',
+                                'justify-content-between' => $sponsor,
+                                'justify-content-end' => !$sponsor,
+                            ])>
+                                @if ($sponsor)
+                                    <p><strong class="text-color">Scadenza sponsorizzazione:
+                                        </strong>{{ $sponsor[0]['pivot']['expiry'] }}</p>
+                                @endif
                                 <a href="{{ route('admin.apartments.sponsors', $apartment) }}">
                                     <div class="btn btn-warning fw-bold text-light">Sponsorizza</div>
                                 </a>
                             </div>
+
                             <p><strong class="text-color">Indirizzo: </strong>{{ $address[0] }}</p>
                             <ul>
                                 <p class="text-color m-0"><strong>Servizi:</strong></p>
