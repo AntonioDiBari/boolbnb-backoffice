@@ -2,7 +2,10 @@
 @section('title', 'Dettaglio appartamento')
 
 @section('content')
-    <div class="container my-3">
+    <div class="container my-3 position-relative">
+        <div class="navigation position-absolute">
+            <a class="btn btn-link" href="{{ route('admin.apartments.index') }}"><i class="fa-solid fa-reply"></i></a>
+        </div>
         <div class="detail-box d-flex flex-column justify-content-center">
             <h1 class="fs-3 text-color"><strong>{{ $apartment->title_desc }}</strong></h1>
             <div class="row  d-flex">
@@ -105,9 +108,6 @@
                         </div>
                     </div>
                 </div>
-                <a class="btn btn-link" href="{{ route('admin.apartments.index') }}"><i class="fa-solid fa-left-long"></i>
-                    Torna ai
-                    tuoi appartamenti</a>
             </div>
         </div>
     </div>
@@ -163,7 +163,7 @@
                             <div class="col-3">{{ $message->email }}</div>
                             <div class="col">{{ $message->getDate() }}</div>
                             <div class="col-1">
-                                <a href="{{ route('admin.messages.show', $message) }}">
+                                <a href="{{ route('admin.messages.show', ['apartment' => $apartment, 'message' => $message]) }}">
                                     <i class="fa-solid fa-circle-info text-primary"></i>
                                 </a>
                             </div>

@@ -3,7 +3,10 @@
 
 
 @section('content')
-    <div class="container my-5 d-flex justify-content-center">
+    <div class="container my-5 d-flex justify-content-center position-relative">
+        <div class="navigation position-absolute">
+            <a class="btn btn-link" href="{{ route('admin.apartments.show', $apartment) }}"><i class="fa-solid fa-reply"></i></a>
+        </div>
         <div class="message-container  p-3 bg-white rounded shadow">
             <div class="d-flex flex-column justify-content-between pb-5">
                 <div class="mb-5">

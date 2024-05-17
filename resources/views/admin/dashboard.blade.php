@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Dashboard')
 
-
 @section('content')
     <div class="container">
         <h2 class="fs-4 text-secondary my-4">
@@ -23,9 +22,9 @@
                 </div>
             </div>
             <div class="d-flex justify-content-around py-5">
-                <a class="btn btn-outline-success" href="{{ route('admin.apartments.index') }}">Vai ai tuoi appartamenti</a>
-                <a class="btn btn-outline-primary" href="{{ route('admin.apartments.create') }}">Aggiungi appartamento</a>
+                <a class="btn btn-primary" href="{{ route('admin.apartments.index') }}">Vai ai tuoi appartamenti</a>
+                <a class="btn btn-secondary" href="{{ route('admin.apartments.create') }}">Aggiungi appartamento</a>
             </div>
         </div>
     </div>
-@endsection
+@endsection --}}

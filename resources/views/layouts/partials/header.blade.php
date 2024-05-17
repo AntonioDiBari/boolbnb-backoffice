@@ -31,8 +31,8 @@
                             {{ Auth::user()->name }}
                         </a>
                         <div aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="{{ route('admin.dashboard') }}"> Dashboard</a>
-                            <a class="dropdown-item" href="{{ url('profile') }}"> Profilo</a>
+                            <a class="dropdown-item" href="{{ route('admin.apartments.index') }}"> I miei appartamenti</a>
+                            {{-- <a class="dropdown-item" href="{{ url('profile') }}"> Profilo</a> --}}
                             <a class="dropdown-item" href="{{ route('logout') }}" id="logout-link">
                                 Esci
                             </a>

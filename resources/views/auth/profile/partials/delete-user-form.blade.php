@@ -1,4 +1,4 @@
-<section class="space-y-6">
+{{-- <section class="space-y-6">
     <header>
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Elimina Account') }}
@@ -65,4 +65,4 @@
         </div>
     </div>
 
-</section>
+</section> --}}
