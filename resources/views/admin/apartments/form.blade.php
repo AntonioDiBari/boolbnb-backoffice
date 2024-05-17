@@ -3,7 +3,10 @@
 @section('title', empty($apartment->id) ? 'Aggiungi Appartamento' : 'Modifica Appartamento')
 
 @section('content')
-    <div class="container my-4">
+    <div class="container my-4 position-relative">
+        <div class="navigation position-absolute">
+            <a class="btn btn-link" href="{{ empty($apartment->id) ? route('admin.apartments.index') : route('admin.apartments.show', $apartment) }}"><i class="fa-solid fa-reply"></i></a>
+        </div>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
