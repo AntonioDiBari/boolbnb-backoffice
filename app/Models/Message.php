@@ -21,4 +21,13 @@ class Message extends Model
     {
         return (strlen($this->body) > $n_chars) ? substr($this->body, 0, $n_chars) . '...' : $this->body;
     }
+
+    public function getDate()
+    {
+        $data = $this->sent;
+        $timestamp = strtotime($data);
+        $soloData = date("Y-m-d", $timestamp);
+        return $soloData;
+
+    }
 }

@@ -13,7 +13,9 @@
                 </ul>
             </div>
         @endif
-        {{-- @dump($addresses) --}}
+        @if (isset($address))
+            <p class="d-none" id="addressEdit">{{ $address }}</p>
+        @endif
         <h1>{{ empty($apartment->id) ? 'Aggiungi Appartamento' : 'Modifica Appartamento' }}</h1>
         <form
             action="{{ empty($apartment->id) ? route('admin.apartments.store') : route('admin.apartments.update', $apartment) }}"
@@ -157,23 +159,26 @@
     <script>
         let options = {
             searchOptions: {
-                key: "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt",
+                key: "m6bLjp96DQhl3wwfT6yrGKFNU7uF0doB",
                 language: "it-IT",
                 limit: 5
             },
             autocompleteOptions: {
-                key: "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt",
+                key: "m6bLjp96DQhl3wwfT6yrGKFNU7uF0doB",
                 language: "it-IT",
             },
         }
+        let address = document.getElementById("addressEdit");
         let ttSearchBox = new tt.plugins.SearchBox(tt.services, options)
         let searchBoxHTML = ttSearchBox.getSearchBoxHTML()
         document.getElementById('searchbox').append(searchBoxHTML);
         const inputBox = document.querySelector('.tt-search-box-input');
         inputBox.setAttribute('name', 'address');
         inputBox.setAttribute('id', 'address');
-        // inputBox.setAttribute('required');
-        // inputBox.setAttribute('value', 'ciao');
+        inputBox.setAttribute('required', "");
+        if (address != null) {
+            inputBox.setAttribute('value', address.innerHTML);
+        }
     </script>
 
     {{-- VALIDAZIONI CLIENT --}}
@@ -185,6 +190,7 @@
 
             const {
                 title_desc,
+                address,
                 n_rooms,
                 n_bathrooms,
                 n_beds,
@@ -196,23 +202,28 @@
                 return;
             }
 
+            if (isEmpty(address.value)) {
+                alert("L'indirizzo non può essere vuoto!");
+                return;
+            }
+
             if (isNegative(n_rooms.value) || (n_rooms.value == 0 || n_rooms.value > 255)) {
-                alert("Inserire un valore valido");
+                alert("Inserire un valore di stanze valido");
                 return;
             }
 
             if (isNegative(n_bathrooms.value) || (n_bathrooms.value == 0 || n_bathrooms.value > 255)) {
-                alert("Inserire un valore valido");
+                alert("Inserire un valore di bagni valido");
                 return;
             }
 
             if (isNegative(n_beds.value) || (n_beds.value == 0 || n_beds.value > 255)) {
-                alert("Inserire un valore valido");
+                alert("Inserire un valore di letti valido");
                 return;
             }
 
             if (isNegative(square_mts.value) || (square_mts.value < 10 || square_mts.value > 255)) {
-                alert("Inserire un valore valido");
+                alert("Inserire un valore di metrature valido");
                 return;
             }
 

@@ -147,16 +147,20 @@ class ApartmentController extends Controller
 
         // $apiKey = "J3iuAWIFiXr0BqrC4gh2RHMmzjR7mdUt";
         // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
-        $addresses = [];
+        // $addresses = [];
+        $address = "";
 
         $address_path = "https://api.tomtom.com/search/2/reverseGeocode/{$apartment->latitude},{$apartment->longitude}.json?key={$apiKey}";
         $address_json = file_get_contents($address_path);
         $address_obj = json_decode($address_json);
-        array_push($addresses, $address_obj->addresses[0]->address->street);
-        array_push($addresses, $address_obj->addresses[0]->address->country);
-        array_push($addresses, $address_obj->addresses[0]->address->municipality);
-        array_push($addresses, $address_obj->addresses[0]->address->streetNumber);
-        return view('admin.apartments.form', compact('apartment', 'services', 'addresses'));
+
+        $address = $address_obj->addresses[0]->address->freeformAddress;
+        // array_push($addresses, $address_obj->addresses[0]->address->street);
+        // array_push($addresses, $address_obj->addresses[0]->address->country);
+        // array_push($addresses, $address_obj->addresses[0]->address->municipality);
+        // array_push($addresses, $address_obj->addresses[0]->address->streetNumber);
+
+        return view('admin.apartments.form', compact('apartment', 'services', 'address'));
     }
 
     /**
