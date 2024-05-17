@@ -3,7 +3,7 @@
         <div class="d-flex">
           <a href="http://localhost:5174/">
             <div class="logo-box d-flex">
-              <img src="../logo.png" alt="logo" />
+              <img src="{{ Vite::asset('resources/assets/logo.png') }}" alt="logo" />
             </div>
           </a>
           <div class="title align-self-center">BoolBnB</div>
