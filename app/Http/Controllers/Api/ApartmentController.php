@@ -18,7 +18,7 @@ class ApartmentController extends Controller
         // $apiKey = "ONRDNhUryVFGib0NMGnBqiPEWGkuIQvI";
 
 
-        $apartments = Apartment::where('visible', true)->whereHas('sponsors')->with(['services:id,name,logo', 'sponsors:id,name,duration,price'])->paginate(12);
+        $apartments = Apartment::where('visible', true)->whereHas('sponsors')->with(['services:id,name,logo', 'sponsors:id,name,duration,price'])->get();
 
         $addresses = [];
         // *****Gestione dell'img dell'appartamento*****
