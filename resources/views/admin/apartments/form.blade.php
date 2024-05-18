@@ -5,7 +5,8 @@
 @section('content')
     <div class="container my-4 position-relative">
         <div class="navigation position-absolute">
-            <a class="btn btn-link" href="{{ empty($apartment->id) ? route('admin.apartments.index') : route('admin.apartments.show', $apartment) }}"><i class="fa-solid fa-reply"></i></a>
+            <a class="btn btn-link" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                    class="fa-solid fa-reply"></i></a>
         </div>
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -252,3 +253,23 @@
         }
     </script>
 @endsection
+
+@section('modal')
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tornare indietro ?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Perderai tutti i progressi e informazioni inserite.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                    <a href="{{ empty($apartment->id) ? route('admin.apartments.index') : route('admin.apartments.show', $apartment) }}"type="button"
+                        class="btn btn-primary">Indietro</a>
+                </div>
+            </div>
+        </div>
+</div>@endsection

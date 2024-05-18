@@ -102,8 +102,19 @@ header {
     color: rgb(103, 103, 255);
 }
 
+// .btn-primary {
+//     background-color: rgb(103, 103, 255);
+// }
 .btn-primary {
-    background-color: rgb(103, 103, 255);
+    font-size: 20px;
+    padding: 7px 18px;
+    background-color: var(--main-color);
+    border: none;
+    &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+        transition: 0.5s;
+    }
 }
 
 .wrapper {
@@ -118,6 +129,9 @@ header {
         flex-grow: 1;
         background-color: aliceblue;
 
+        h1 {
+            color: var(--rose-red);
+        }
         .navigation {
             display: flex;
             justify-content: center;
@@ -135,18 +149,6 @@ header {
                 width: 100%;
                 color: var(--main-color);
                 font-size: 35px;
-            }
-        }
-
-        .btn-primary {
-            font-size: 20px;
-            padding: 7px 18px;
-            background-color: var(--main-color);
-            border: none;
-            &:hover {
-                cursor: pointer;
-                opacity: 0.8;
-                transition: 0.5s;
             }
         }
 
@@ -259,7 +261,7 @@ header {
 }
 
 .services-collum {
-    background-color: #8bcdf3;
+    // background-color: #8bcdf3;
 }
 
 .img-fixed {
