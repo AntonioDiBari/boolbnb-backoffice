@@ -127,12 +127,12 @@
                     Se confermi non potrai tornare indietro.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
 
                     <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-danger">Elimina</button>
                     </form>
                 </div>
             </div>
