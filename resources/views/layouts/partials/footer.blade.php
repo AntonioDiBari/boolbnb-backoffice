@@ -13,7 +13,7 @@
                 </li>
                 <li class="me-3">
                   <a href="https://twitter.com/i/flow/login"
-                    ><i class="fa-brands fa-twitter"></i></a>
+                    ><i class="fa-brands fa-x-twitter"></i></a>
                 </li>
                 <li class="me-3">
                   <a href="https://www.facebook.com/?locale=it_IT"
@@ -21,7 +21,7 @@
                 </li>
                 <li>
                   <a href="https://www.skype.com/it/"
-                    ><i class="fa-brands fa-x-twitter"></i></a>
+                    ><i class="fa-brands fa-skype"></i></a>
                 </li>
               </ul>
             </div>
