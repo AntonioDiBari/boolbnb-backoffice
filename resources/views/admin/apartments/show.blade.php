@@ -7,7 +7,8 @@
             <a class="btn btn-link" href="{{ route('admin.apartments.index') }}"><i class="fa-solid fa-reply"></i></a>
         </div>
         <div class="detail-box d-flex flex-column justify-content-center">
-            <h1 class="fs-3 text-color"><strong>{{ $apartment->title_desc }}</strong></h1>
+            <h1 class="fs-3 text-color">
+                <strong>{{ $apartment->title_desc }}</strong></h1>
             <div class="row  d-flex">
                 <div class="col-6">
                     <div class="img-box rounded-2 overflow-hidden position-relative">
@@ -40,7 +41,7 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="desc-box d-flex flex-column">
+                    <div class="desc-box d-flex flex-column justify-content-between h-100">
                         <div>
                             <div @class([
                                 'd-flex',
@@ -59,12 +60,17 @@
                             <p><strong class="text-color">Indirizzo: </strong>{{ $address[0] }}</p>
                             <ul>
                                 <p class="text-color m-0"><strong>Servizi:</strong></p>
-                                @foreach ($apartment->services as $service)
-                                    <li><span class="text-color"><i class="fa-solid fa-{{ $service->logo }}"></i>
+                                <div class="row">
+                                    
+                                    @foreach ($apartment->services as $service)
+                                    <div class="col-6">
+                                        <li><span class="text-color"><i class="fa-solid fa-{{ $service->logo }}"></i>
                                         </span>{{ $service->name }}</li>
-                                @endforeach
+                                    </div>
+                                    @endforeach
+                                </div>
                             </ul>
-                            <table class="table text-center">
+                            <table class="table text-center mt-2">
                                 <thead>
                                     <tr>
                                         <th scope="col">
@@ -109,6 +115,17 @@
                     </div>
                 </div>
             </div>
+            @if ($apartment->visible)
+            <div class="d-flex align-items-center pt-2 gap-2">
+                <i class="eye fa-solid fa-eye fs-4"></i>
+                <span class="fs-5">L'appartamento è visibile</span>
+            </div>
+            @else
+            <div class="d-flex align-items-center pt-2 gap-2">
+                <i class="eye fa-solid fa-eye-slash fs-4"></i>
+                <span class="fs-5">L'appartamento non è visibile</span>
+            </div>
+            @endif
         </div>
     </div>
 @endsection

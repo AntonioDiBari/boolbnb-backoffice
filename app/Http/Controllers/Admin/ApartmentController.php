@@ -230,7 +230,7 @@ class ApartmentController extends Controller
         $apartment->delete();
         return redirect()->route('admin.apartments.index')
             ->with("message", "Appartamento eliminato con successo")
-            ->with("type", "alert-info");
+            ->with("type", "alert-danger");
     }
 
     public function sponsors(Apartment $apartment)

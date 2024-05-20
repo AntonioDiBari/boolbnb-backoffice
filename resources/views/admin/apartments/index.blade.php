@@ -9,14 +9,14 @@
                 <div class="btn btn-primary">Inserisci Appartamento</div>
             </a>
         </div>
-        {{-- <div class="container alert-container">
+        <div class="container alert-container">
             @if (session('message'))
                 <div class="alert {{ session('type') }} alert-dismissible my-2">
                     {{ session('message') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-        </div> --}}
+        </div>
         <div class="row">
             @forelse ($apartments as $key => $apartment)
 
