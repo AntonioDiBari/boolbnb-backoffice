@@ -4,7 +4,8 @@
 @section('content')
     <div class="container my-5 position-relative">
         <div class="navigation position-absolute">
-            <a class="btn btn-link" href="{{ route('admin.apartments.show', $apartment) }}"><i class="fa-solid fa-reply"></i></a>
+            <a class="btn btn-link" href="{{ route('admin.apartments.show', $apartment) }}"><i
+                    class="fa-solid fa-reply"></i></a>
         </div>
         <h3 class="my-3">Sponsorizza {{ $apartment->title_desc }}</h3>
         <div class="bg-light p-2 rounded mb-3">
@@ -35,7 +36,7 @@
             </form>
         </div>
         <h2><strong>Storico sponsorizzazioni</strong></h2>
-        @foreach ($sponsors as $sponsor)
+        @forelse ($sponsors as $sponsor)
             <div @class([
                 'my-2 p-2 text-light rounded',
                 'standard-bg' => $sponsor->name == 'Standard',
@@ -46,7 +47,10 @@
                 <h5><strong>Inizio sponsorizzazione: </strong>{{ $sponsor->pivot->created }}</h5>
                 <h5><strong>Fine sponsorizzazione: </strong>{{ $sponsor->pivot->expiry }}</h5>
             </div>
-        @endforeach
+        @empty
+            0 Sponsorizzazioni
+        @endforelse
+
     </div>
 
 @endsection
